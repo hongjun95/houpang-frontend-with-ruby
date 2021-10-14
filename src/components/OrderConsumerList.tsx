@@ -23,7 +23,6 @@ const OrderConsumerList: React.FC<OrderConsumerListProps> = ({ currentUser, canc
     threshold: 0,
   });
 
-  console.log(currentUser);
   const {
     fetchNextPage, //
     refetch,
@@ -64,10 +63,6 @@ const OrderConsumerList: React.FC<OrderConsumerListProps> = ({ currentUser, canc
       f7.dialog.alert(error);
     }
   };
-
-  if (status === 'success') {
-    console.log(data.pages);
-  }
 
   return (
     <>

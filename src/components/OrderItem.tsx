@@ -118,10 +118,6 @@ const OrderItemComponent: React.FC<OrderItemProps> = ({
         <a href={`/items/${orderItem.item.id}`}>
           <img src={orderItem.item.product_images[0]} alt="" className="w-24 h-24 mr-4" />
         </a>
-        {/* <div
-          style={{ backgroundImage: `url(${orderItem.item.product_images[0]})` }}
-          className=" bg-gray-200 bg-center bg-cover w-24 h-24 mr-4"
-        ></div> */}
         <div className="overflow-hidden w-3/4 flex flex-col justify-between h-full">
           <a href={`/items/${orderItem.item.id}`}>
             <div className="font-bold mb-4 line-clamp-2 h-10">{orderItem.item.name}</div>

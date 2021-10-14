@@ -24,10 +24,10 @@ import EditItemInfoPage from '@pages/items/edit-item-info';
 import OrderPage from '@pages/orders/order';
 import OrderListPage from '@pages/orders/order-list';
 
-// import SelectProdcutPage from '@pages/refunds/select-item';
-// import SelectReasonPage from '@pages/refunds/select-reason';
-// import SelectSolutionPage from '@pages/refunds/select-solution';
-// import RefundListPage from '@pages/refunds/refund-list';
+import SelectProdcutPage from '@pages/refunds/select-item';
+import SelectReasonPage from '@pages/refunds/select-reason';
+import SelectSolutionPage from '@pages/refunds/select-solution';
+import RefundListPage from '@pages/refunds/refund-list';
 
 import ShoppingListPage from '@pages/shopping-lists/shopping-list';
 
@@ -77,10 +77,10 @@ const orderPages = [
 ];
 
 const refundPages = [
-  // { path: '/orders/:orderItemId/refund/select-item', component: SelectProdcutPage },
-  // { path: '/orders/:orderItemId/refund/select-reason', component: SelectReasonPage },
-  // { path: '/orders/:orderItemId/refund/select-solution', component: SelectSolutionPage },
-  // { path: '/refunds', component: RefundListPage },
+  { path: '/orders/:orderItemId/refund/select-item', component: SelectProdcutPage },
+  { path: '/orders/:orderItemId/refund/select-reason', component: SelectReasonPage },
+  { path: '/orders/:orderItemId/refund/select-solution', component: SelectSolutionPage },
+  { path: '/refunds', component: RefundListPage },
 ];
 
 const listPages = [
