@@ -63,12 +63,12 @@ const userPages = [
 
 const itemPages = [
   { path: '/items', component: ItemsOnCategoryPage },
-  // { path: '/items/add', component: AddItemPage },
-  // { path: '/items/add-info', component: AddItemInfoPage },
-  // { path: '/items/manage', component: ManageItemsPage },
+  { path: '/items/add', component: AddItemPage },
+  { path: '/items/add-info', component: AddItemInfoPage },
+  { path: '/items/manage', component: ManageItemsPage },
   { path: '/items/:id', component: ItemDetailPage },
-  // { path: '/items/:id/edit', component: EditItemPage },
-  // { path: '/items/:id/edit-info', component: EditItemInfoPage },
+  { path: '/items/:id/edit', component: EditItemPage },
+  { path: '/items/:id/edit-info', component: EditItemInfoPage },
 ];
 
 const orderPages = [

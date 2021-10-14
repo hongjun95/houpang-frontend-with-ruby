@@ -40,6 +40,7 @@ const ShoppingListPage = ({ f7router }: PageRouteProps) => {
     setPage('NormalBuying');
   };
 
+
   return (
     <Page noToolbar className="min-h-screen">
       <Navbar title="장바구니" backLink={true}></Navbar>
@@ -58,7 +59,7 @@ const ShoppingListPage = ({ f7router }: PageRouteProps) => {
           }  `}
           onClick={changeToLike}
         >
-          <span>찜한상품({likeList.items.length})</span>
+          <span>찜한상품({likeList.items?.length || 0})</span>
         </ToggleButton>
         <Indicator className="indicator absolute left-0 bottom-0 w-1/2 bg-blue-700"></Indicator>
       </div>

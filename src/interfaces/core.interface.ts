@@ -5,8 +5,6 @@ export interface CoreOutput {
 
 export interface CoreEntity {
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 export interface PaginationInput {

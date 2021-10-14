@@ -11,13 +11,7 @@ import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import { getCategories } from '@api';
 import { EditItemForm, FindItemByIdOutput } from '@interfaces/item.interface';
 import { GetAllCategoriesOutput } from '@interfaces/category.interface';
-import {
-  itemCategoryNameAtom,
-  itemImgFilesAtom,
-  itemNameAtom,
-  itemPriceAtom,
-  itemStockAtom,
-} from '@atoms';
+import { itemCategoryNameAtom, itemImgFilesAtom, itemNameAtom, itemPriceAtom, itemStockAtom } from '@atoms';
 import { itemKeys } from '@reactQuery/query-keys';
 import PreviewImg from '@components/PreviewImg';
 
@@ -92,7 +86,6 @@ const EditItemInfoPage = ({ f7router, f7route }) => {
       fileArr.forEach((file) => {
         let reader = new FileReader();
         reader.onload = (ev) => {
-          console.log(ev.target);
           setPreviewImgUris((prev) => [...prev, ev.target.result]);
         };
         reader.readAsDataURL(file);
@@ -107,9 +100,7 @@ const EditItemInfoPage = ({ f7router, f7route }) => {
       <Formik
         initialValues={initialValues}
         validationSchema={EditItemSchema}
-        onSubmit={(values, { setSubmitting }: FormikHelpers<EditItemForm>) =>
-          handleItemContent(values, setSubmitting)
-        }
+        onSubmit={(values, { setSubmitting }: FormikHelpers<EditItemForm>) => handleItemContent(values, setSubmitting)}
         validateOnMount
       >
         {({ handleChange, handleBlur, setFieldValue, values, errors, touched, isSubmitting, isValid }) => (

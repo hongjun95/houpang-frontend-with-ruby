@@ -26,12 +26,14 @@ export interface Item extends CoreEntity {
 // Add item
 
 export interface AddItemInput {
-  name: string;
-  price: number;
-  stock: number;
-  categoryName: string;
-  images: string[];
-  infos: Array<InfoItem>;
+  item: {
+    name: string;
+    sale_price: number;
+    stock: number;
+    product_images: string[];
+    infos: Array<InfoItem>;
+  };
+  category_name: string;
 }
 export interface AddItemOutput extends CoreOutput {
   item?: Item;
@@ -40,7 +42,7 @@ export interface AddItemForm {
   name: string;
   price: number;
   stock: number;
-  categoryName: string;
+  category_name: string;
   images: Array<File>;
 }
 export interface AddItemInfoForm {
@@ -70,7 +72,7 @@ export interface GetItemsBySearchTermOutput extends PaginationOutput {
 // Get items from provider
 
 export const SortStates = [
-  ['createdAt desc', '최신순'],
+  ['created_at desc', '최신순'],
   ['price desc', '높은가격순'],
   ['price asc', '낮은가격순'],
 ] as const;
@@ -89,7 +91,7 @@ export interface EditItemInput {
   name: string;
   price: number;
   stock: number;
-  categoryName: string;
+  category_name: string;
   images: string[];
   infos: Array<InfoItem>;
   itemId: string;
@@ -99,7 +101,7 @@ export interface EditItemForm {
   name: string;
   price: number;
   stock: number;
-  categoryName: string;
+  category_name: string;
   images: Array<File>;
 }
 export interface EditItemInfoForm {

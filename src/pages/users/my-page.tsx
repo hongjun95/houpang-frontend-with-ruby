@@ -13,7 +13,7 @@ const MyPage = ({ f7router }: PageRouteProps) => {
     try {
       await logoutAPI();
     } catch (e) {
-      console.log(e);
+      console.error(e);
     } finally {
       unAuthenticateUser();
     }
@@ -81,7 +81,7 @@ const MyPage = ({ f7router }: PageRouteProps) => {
             {currentUser.role === UserRole.Provider && (
               <>
                 <li>
-                  <a href="/products/add" className="block hover:bg-gray-50">
+                  <a href="/items/add" className="block hover:bg-gray-50">
                     <div className="flex items-center px-4 py-4 sm:px-6">
                       <div className="min-w-0 flex-1 flex items-center">
                         <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
@@ -94,7 +94,7 @@ const MyPage = ({ f7router }: PageRouteProps) => {
                   </a>
                 </li>
                 <li>
-                  <a href="/products/manage" className="block hover:bg-gray-50">
+                  <a href="/items/manage" className="block hover:bg-gray-50">
                     <div className="flex items-center px-4 py-4 sm:px-6">
                       <div className="min-w-0 flex-1 flex items-center">
                         <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">

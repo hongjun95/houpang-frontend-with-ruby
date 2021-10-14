@@ -10,7 +10,7 @@ import { destroyToken, getToken } from '@store';
 import { sleep } from '@utils/index';
 import { likeKeys } from '@reactQuery/query-keys';
 import { FindLikeListOutput, Like } from '@interfaces/like.interface';
-import { findLikeList, logoutAPI } from '@api';
+import { findLikeListAPI, logoutAPI } from '@api';
 import { likeListAtom } from '@atoms';
 
 const F7Views = () => {
@@ -44,9 +44,12 @@ const F7Views = () => {
     })();
   }, []);
 
-  const { data, status } = useQuery<FindLikeListOutput, Error>(likeKeys.detail(currentUser?.id), findLikeList);
+  const { data, status } = useQuery<FindLikeListOutput, Error>(
+    likeKeys.detail(currentUser?.id), //
+    findLikeListAPI,
+  );
   if (status === 'success') {
-    setLikeList(data.likeList);
+    setLikeList(data.like);
   }
 
   if (isLoading) {

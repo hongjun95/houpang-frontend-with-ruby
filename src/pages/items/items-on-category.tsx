@@ -29,7 +29,7 @@ const ItemsOnCategoryPage = ({ f7route, f7router }) => {
 
   const filterForm = useFormik<ItemFilterProps>({
     initialValues: {
-      sort: 'createdAt desc',
+      sort: 'created_at desc',
     },
 
     onSubmit: async () => {

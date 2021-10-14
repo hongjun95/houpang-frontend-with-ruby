@@ -48,9 +48,7 @@ export const orderListAtom = atom({
 export const likeListAtom = atom<Like>({
   key: 'likeListAtom',
   default: {
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    createdBy: null,
+    created_by: null,
     id: '',
     items: [],
   },

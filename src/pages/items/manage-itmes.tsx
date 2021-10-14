@@ -31,7 +31,7 @@ const ManageItemsPage = ({ f7route, f7router }) => {
 
   const filterForm = useFormik<ItemsFilterProps>({
     initialValues: {
-      sort: 'createdAt desc',
+      sort: 'created_at desc',
     },
 
     onSubmit: async () => {
@@ -139,7 +139,6 @@ const ManageItemsPage = ({ f7route, f7router }) => {
           className="float-right inline-flex items-center px-2.5 py-3 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           name="sort"
           onChange={(e) => {
-            console.log(e);
             filterForm.handleChange(e);
             filterForm.submitForm();
           }}

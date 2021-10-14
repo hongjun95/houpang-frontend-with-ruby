@@ -140,7 +140,7 @@ export const getCategories = async () => {
 
 export const getItemsByCategoryId = async ({
   categoryId,
-  sort = 'createdAt desc',
+  sort = 'created_at desc',
   page = 1,
 }: GetItemsByCategoryIdInput): Promise<GetItemsByCategoryIdOutput> => {
   let response: AxiosResponse<GetItemsByCategoryIdOutput>;
@@ -209,7 +209,7 @@ export const getItemsFromProvider = async ({
   return result;
 };
 
-export const addItem = async (data: AddItemInput): Promise<AddItemOutput> => {
+export const addItemAPI = async (data: AddItemInput): Promise<AddItemOutput> => {
   let response: AxiosResponse<AddItemOutput>;
   try {
     response = await API.post<AddItemOutput>('/items', data);
@@ -222,7 +222,7 @@ export const addItem = async (data: AddItemInput): Promise<AddItemOutput> => {
 
 export const editItem = async ({
   itemId,
-  categoryName,
+  category_name,
   images,
   infos,
   name,
@@ -230,7 +230,7 @@ export const editItem = async ({
   stock,
 }: EditItemInput): Promise<EditItemOutput> => {
   const data = {
-    categoryName,
+    category_name,
     images,
     infos,
     name,
@@ -433,7 +433,7 @@ export const getRefundsFromProviderAPI = async ({
 
 // Like APIs
 
-export const findLikeList = async (): Promise<FindLikeListOutput> => {
+export const findLikeListAPI = async (): Promise<FindLikeListOutput> => {
   let response: AxiosResponse<FindLikeListOutput>;
   try {
     response = await API.get<FindLikeListOutput>('/likes');

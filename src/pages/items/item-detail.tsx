@@ -187,6 +187,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
   //   });
   // };
 
+
   return (
     <Page noToolbar className="min-h-screen">
       <Navbar title="상품상세" backLink={true}></Navbar>
@@ -383,7 +384,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
             )}
           </div> */}
           <div className="flex fixed bottom-0 border-t-2 botder-gray-600 w-full p-2 bg-white">
-            {like || likeList.items.find((item) => item.id === itemId) ? (
+            {like || (likeList.items && likeList.items?.find((item) => item.id === itemId)) ? (
               <i className="f7-icons cursor-pointer m-3 text-red-500" onClick={unlikeItem}>
                 heart_fill
               </i>

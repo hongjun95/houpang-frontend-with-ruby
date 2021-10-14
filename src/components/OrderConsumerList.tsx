@@ -80,7 +80,7 @@ const OrderConsumerList: React.FC<OrderConsumerListProps> = ({ currentUser, canc
               {page?.orders.map((order) => (
                 <Order
                   key={order.id}
-                  createdAt={order.orderedAt}
+                  created_at={order.orderedAt}
                   destination={order.destination}
                   deliverRequest={order.deliverRequest}
                 >

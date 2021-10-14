@@ -2,19 +2,13 @@ import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
 import i18next from 'i18next';
+import { random } from 'lodash';
 
-import { sleep } from '@utils';
 import { f7, List, ListInput, Navbar, Page } from 'framework7-react';
 import { PageRouteProps } from '@constants';
-import { addItem, uploadImages } from '@api';
+import { addItemAPI, uploadImages } from '@api';
 import { useRecoilValue } from 'recoil';
-import {
-  itemCategoryNameAtom,
-  itemImgFilesAtom,
-  itemNameAtom,
-  itemPriceAtom,
-  itemStockAtom,
-} from '@atoms';
+import { itemCategoryNameAtom, itemImgFilesAtom, itemNameAtom, itemPriceAtom, itemStockAtom } from '@atoms';
 import { InfoItem } from '@interfaces/item.interface';
 import { mapValues } from 'lodash';
 
@@ -61,30 +55,36 @@ const AddItemInfoPage = ({ f7router }: PageRouteProps) => {
         value: rest[`${info.id}-infoValue`],
       }));
 
-      let images: string[];
+      let product_images: string[];
       if (itemImgFiles.length !== 0) {
         const formBody = new FormData();
 
         for (const image of itemImgFiles) {
           formBody.append('files', image);
         }
-        const {
-          status,
-          data: { urls },
-        } = await uploadImages(formBody);
-        if (status === 200) {
-          images = urls;
-        }
+        // const {
+        //   status,
+        //   data: { urls },
+        // } = await uploadImages(formBody);
+        // if (status === 200) {
+        //   images = urls;
+        // }
+        product_images = [
+          `https://source.unsplash.com/1600x90${random(9)}/?product`,
+          `https://source.unsplash.com/1600x90${random(9)}/?product`,
+        ];
       }
 
       try {
-        const { ok, error, item } = await addItem({
-          name: itemName,
-          price: itemPrice,
-          categoryName: itemCategoryName,
-          stock: itemStock,
-          images,
-          infos: submittedInfoObjects,
+        const { ok, error, item } = await addItemAPI({
+          item: {
+            name: itemName,
+            sale_price: itemPrice,
+            stock: itemStock,
+            product_images,
+            infos: submittedInfoObjects,
+          },
+          category_name: itemCategoryName,
         });
 
         if (ok) {

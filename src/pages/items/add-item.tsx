@@ -82,7 +82,6 @@ const AddItemPage = ({ f7router, f7route }) => {
       fileArr.forEach((file) => {
         let reader = new FileReader();
         reader.onload = (ev) => {
-          console.log(ev.target);
           setPreviewImgUris((prev) => [...prev, ev.target.result]);
         };
         reader.readAsDataURL(file);

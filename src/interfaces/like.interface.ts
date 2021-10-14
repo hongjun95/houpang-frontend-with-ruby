@@ -3,12 +3,12 @@ import { Item } from './item.interface';
 import { User } from './user.interface';
 
 export interface Like extends CoreEntity {
-  createdBy: User;
+  created_by: User;
   items: Item[];
 }
 
 export interface FindLikeListOutput extends CoreOutput {
-  likeList?: Like;
+  like?: Like;
 }
 
 export interface LikeItemInput {
