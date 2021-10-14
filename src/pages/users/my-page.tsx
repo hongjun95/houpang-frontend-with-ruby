@@ -1,9 +1,12 @@
-import { API_URL, logoutAPI } from '@api';
-import useAuth from '@hooks/useAuth';
-import { Navbar, NavTitle, Page } from 'framework7-react';
 import React, { useCallback } from 'react';
+import { Navbar, NavTitle, Page } from 'framework7-react';
 
-const MyPage = () => {
+import useAuth from '@hooks/useAuth';
+import { UserRole } from '@interfaces/user.interface';
+import { PageRouteProps } from '@constants';
+import { logoutAPI } from '@api';
+
+const MyPage = ({ f7router }: PageRouteProps) => {
   const { currentUser, isAuthenticated, unAuthenticateUser } = useAuth();
 
   const logoutHandler = useCallback(async () => {
@@ -14,6 +17,7 @@ const MyPage = () => {
     } finally {
       unAuthenticateUser();
     }
+    // f7router.navigate('/');
   }, [unAuthenticateUser]);
 
   return (
@@ -25,10 +29,10 @@ const MyPage = () => {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
           <div className="flex items-center space-x-5">
             <div className="flex-shrink-0">
-              <a href={`/users/${currentUser?.id}`}>
+              <a href="/users/edit-profile">
                 <div className="relative">
-                  {currentUser?.image_path ? (
-                    <img className="h-24 w-24 rounded-full" src={API_URL + currentUser?.image_path} alt="" />
+                  {currentUser?.name ? (
+                    <img className="h-24 w-24 rounded-full" src={currentUser?.name} alt="프로필 이미지" />
                   ) : (
                     <i
                       className="h-24 w-24 rounded-full las la-user-circle"
@@ -40,43 +44,72 @@ const MyPage = () => {
               </a>
             </div>
             <div className="w-full">
-              <a href={`/users/${currentUser?.id}`}>
+              <a href="/users/edit-profile">
                 <h1 className="text-xl font-bold text-gray-900">{isAuthenticated ? currentUser.name : '인썸니아'}</h1>
                 <p className="mt-1 text-xs font-medium text-gray-500">
                   팔로워 <span className=" text-gray-900">0</span> | 팔로잉 <span className=" text-gray-900">0</span>
                 </p>
               </a>
             </div>
-            <a href={`/users/${currentUser?.id}`}>
+            <a href="/users/edit-profile">
               <i className="las la-angle-right" style={{ fontSize: '24px', color: 'gray' }} />
             </a>
           </div>
         </div>
         <div className="py-8 grid grid-flow-col auto-cols-max grid-cols-3 gap-4 text-center">
           <div className="text-center">
-            <a href="/notifications">
+            <a href="/notifications" className="flex flex-col mypage_notification">
               <i className="mb-2 las la-bell" style={{ fontSize: '42px', color: 'lightgray' }} />
-              <br />
               <span className="text-sm text-gray-600">알림</span>
             </a>
           </div>
           <div className="text-center">
-            <i className="mb-2 las la-file-invoice" style={{ fontSize: '42px', color: 'lightgray' }} />
-            <br />
-            <span className="text-sm text-gray-600">주문</span>
+            <a href="/orders" className="text-sm flex flex-col mypage_order">
+              <i className="mb-2 las la-file-invoice" style={{ fontSize: '42px', color: 'lightgray' }} />
+              <span className="text-sm text-gray-600">주문</span>
+            </a>
           </div>
           <div className="text-center">
-            <a href="/likes/list" className="text-sm text-gray-600">
+            <a href="/shopping-list" className="text-sm text-gray-600 flex flex-col mypage_like">
               <i className="mb-2 lar la-heart" style={{ fontSize: '42px', color: 'lightgray' }} />
-              <br />
-              좋아요{/* <span className="font-semibold text-gray-900">0</span> */}
+              <span className="text-sm text-gray-600">좋아요</span>
             </a>
           </div>
         </div>
         <div className="bg-white overflow-hidden sm:rounded-md">
           <ul className="divide-y divide-gray-200">
+            {currentUser.role === UserRole.Provider && (
+              <>
+                <li>
+                  <a href="/products/add" className="block hover:bg-gray-50">
+                    <div className="flex items-center px-4 py-4 sm:px-6">
+                      <div className="min-w-0 flex-1 flex items-center">
+                        <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                          <div>
+                            <p className="text-sm font-medium text-gray-900 truncate">상품 추가하기</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/products/manage" className="block hover:bg-gray-50">
+                    <div className="flex items-center px-4 py-4 sm:px-6">
+                      <div className="min-w-0 flex-1 flex items-center">
+                        <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                          <div>
+                            <p className="text-sm font-medium text-gray-900 truncate">상품 관리하기</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </>
+            )}
             <li>
-              <a href="#" className="block hover:bg-gray-50">
+              <a href="/users/edit-profile" className="block hover:bg-gray-50">
                 <div className="flex items-center px-4 py-4 sm:px-6">
                   <div className="min-w-0 flex-1 flex items-center">
                     <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
@@ -89,7 +122,20 @@ const MyPage = () => {
               </a>
             </li>
             <li>
-              <a href="#" className="block hover:bg-gray-50">
+              <a href="/users/change-password" className="block hover:bg-gray-50">
+                <div className="flex items-center px-4 py-4 sm:px-6">
+                  <div className="min-w-0 flex-1 flex items-center">
+                    <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                      <div>
+                        <p className="text-sm font-medium text-gray-900 truncate">비밀 번호 변경</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="/orders" className="block hover:bg-gray-50">
                 <div className="flex items-center px-4 py-4 sm:px-6">
                   <div className="min-w-0 flex-1 flex items-center">
                     <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
@@ -102,7 +148,7 @@ const MyPage = () => {
               </a>
             </li>
             <li>
-              <a href="#" className="block hover:bg-gray-50">
+              <a href="/refunds" className="block hover:bg-gray-50">
                 <div className="flex items-center px-4 py-4 sm:px-6">
                   <div className="min-w-0 flex-1 flex items-center">
                     <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
@@ -155,7 +201,7 @@ const MyPage = () => {
             </li>
             {isAuthenticated ? (
               <li>
-                <button href="#" onClick={logoutHandler} className="block hover:bg-gray-50">
+                <a href="#" onClick={logoutHandler} className="block hover:bg-gray-50">
                   <div className="flex items-center px-4 py-4 sm:px-6">
                     <div className="min-w-0 flex-1 flex items-center">
                       <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
@@ -165,7 +211,7 @@ const MyPage = () => {
                       </div>
                     </div>
                   </div>
-                </button>
+                </a>
               </li>
             ) : null}
           </ul>
