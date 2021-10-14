@@ -74,7 +74,7 @@ const OrderProviderList: React.FC<OrderProviderListProps> = ({ currentUser, canc
         <ul className="flex flex-col">
           {data.pages.map((page, index) => (
             <React.Fragment key={index}>
-              {page?.orderItems.map((orderItem) => (
+              {page?.order_items.map((orderItem) => (
                 <OrderItem
                   key={orderItem.id}
                   userId={currentUser.id}

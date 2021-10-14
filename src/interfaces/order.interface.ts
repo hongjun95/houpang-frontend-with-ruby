@@ -41,7 +41,7 @@ export interface GetOrdersFromProviderInput extends PaginationInput {
   provider_id: string;
 }
 export interface GetOrdersFromProviderOutput extends PaginationOutput {
-  orderItems?: OrderItem[];
+  order_items?: OrderItem[];
 }
 
 // Create order
