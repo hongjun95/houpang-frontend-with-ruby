@@ -1,6 +1,6 @@
 import { CoreEntity, CoreOutput } from './core.interface';
 import { Order } from './order.interface';
-import { Product } from './product.interface';
+import { Item } from './item.interface';
 import { Review } from './review.interface';
 
 export enum UserRole {
@@ -16,7 +16,7 @@ export interface User extends CoreEntity {
   role: UserRole;
   phone: string;
   address1: string;
-  products: Product[];
+  items: Item[];
   orders: Order[];
   reviews: Review[];
 }

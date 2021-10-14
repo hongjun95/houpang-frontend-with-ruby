@@ -10,7 +10,7 @@ export interface InfoItem {
   value: string;
 }
 
-export interface Product extends CoreEntity {
+export interface Item extends CoreEntity {
   name: string;
   provider: User;
   price: number;
@@ -23,9 +23,9 @@ export interface Product extends CoreEntity {
   reviews: Review[];
 }
 
-// Add product
+// Add item
 
-export interface AddProductInput {
+export interface AddItemInput {
   name: string;
   price: number;
   stock: number;
@@ -33,41 +33,41 @@ export interface AddProductInput {
   images: string[];
   infos: Array<InfoItem>;
 }
-export interface AddProductOutput extends CoreOutput {
-  product?: Product;
+export interface AddItemOutput extends CoreOutput {
+  item?: Item;
 }
-export interface AddProductForm {
+export interface AddItemForm {
   name: string;
   price: number;
   stock: number;
   categoryName: string;
   images: Array<File>;
 }
-export interface AddProductInfoForm {
+export interface AddItemInfoForm {
   [key: string]: string;
 }
 
-// Find Product by Id
+// Find Item by Id
 
-export interface FindProductByIdInput {
-  productId: string;
+export interface FindItemByIdInput {
+  itemId: string;
 }
-export interface FindProductByIdOutput extends CoreOutput {
-  product?: Product;
+export interface FindItemByIdOutput extends CoreOutput {
+  item?: Item;
 }
 
-// Get Products by Search Term
+// Get Items by Search Term
 
-export interface GetProductsBySearchTermInput extends PaginationInput {
+export interface GetItemsBySearchTermInput extends PaginationInput {
   sort: SortState;
   query: string;
 }
 
-export interface GetProductsBySearchTermOutput extends PaginationOutput {
-  products?: Product[];
+export interface GetItemsBySearchTermOutput extends PaginationOutput {
+  items?: Item[];
 }
 
-// Get products from provider
+// Get items from provider
 
 export const SortStates = [
   ['createdAt desc', '최신순'],
@@ -76,39 +76,39 @@ export const SortStates = [
 ] as const;
 export type SortState = typeof SortStates[number][0];
 
-export interface GetProductsFromProviderInput extends PaginationInput {
+export interface GetItemsFromProviderInput extends PaginationInput {
   sort?: SortState;
 }
-export interface GetProductsFromProviderOutput extends PaginationOutput {
-  products?: Product[];
+export interface GetItemsFromProviderOutput extends PaginationOutput {
+  items?: Item[];
 }
 
-// Edit product
+// Edit item
 
-export interface EditProductInput {
+export interface EditItemInput {
   name: string;
   price: number;
   stock: number;
   categoryName: string;
   images: string[];
   infos: Array<InfoItem>;
-  productId: string;
+  itemId: string;
 }
-export interface EditProductOutput extends CoreOutput {}
-export interface EditProductForm {
+export interface EditItemOutput extends CoreOutput {}
+export interface EditItemForm {
   name: string;
   price: number;
   stock: number;
   categoryName: string;
   images: Array<File>;
 }
-export interface EditProductInfoForm {
+export interface EditItemInfoForm {
   [key: string]: string;
 }
 
-// Delete product
+// Delete item
 
-export interface DeleteProductInput {
-  productId: string;
+export interface DeleteItemInput {
+  itemId: string;
 }
-export interface DeleteProductOutput extends CoreOutput {}
+export interface DeleteItemOutput extends CoreOutput {}

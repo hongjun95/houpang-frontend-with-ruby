@@ -1,22 +1,22 @@
 import { CoreEntity, CoreOutput } from './core.interface';
-import { Product } from './product.interface';
+import { Item } from './item.interface';
 import { User } from './user.interface';
 
 export interface Like extends CoreEntity {
   createdBy: User;
-  products: Product[];
+  items: Item[];
 }
 
 export interface FindLikeListOutput extends CoreOutput {
   likeList?: Like;
 }
 
-export interface LikeProductInput {
-  productId: string;
+export interface LikeItemInput {
+  itemId: string;
 }
-export interface LikeProductOutput extends CoreOutput {}
+export interface LikeItemOutput extends CoreOutput {}
 
-export interface UnlikeProductInput {
-  productId: string;
+export interface UnlikeItemInput {
+  itemId: string;
 }
-export interface UnlikeProductOutput extends CoreOutput {}
+export interface UnlikeItemOutput extends CoreOutput {}

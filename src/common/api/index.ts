@@ -1,10 +1,10 @@
 import { Category, Item, Token } from '@constants';
 import {
   FindLikeListOutput,
-  LikeProductInput,
-  LikeProductOutput,
-  UnlikeProductInput,
-  UnlikeProductOutput,
+  LikeItemInput,
+  LikeItemOutput,
+  UnlikeItemInput,
+  UnlikeItemOutput,
 } from '@interfaces/like.interface';
 import {
   CancelOrderItemInput,
@@ -19,19 +19,19 @@ import {
   UpdateOrerStatusOutput,
 } from '@interfaces/order.interface';
 import {
-  AddProductInput,
-  AddProductOutput,
-  DeleteProductInput,
-  DeleteProductOutput,
-  EditProductInput,
-  EditProductOutput,
-  FindProductByIdInput,
-  FindProductByIdOutput,
-  GetProductsBySearchTermInput,
-  GetProductsBySearchTermOutput,
-  GetProductsFromProviderInput,
-  GetProductsFromProviderOutput,
-} from '@interfaces/product.interface';
+  AddItemInput,
+  AddItemOutput,
+  DeleteItemInput,
+  DeleteItemOutput,
+  EditItemInput,
+  EditItemOutput,
+  FindItemByIdInput,
+  FindItemByIdOutput,
+  GetItemsBySearchTermInput,
+  GetItemsBySearchTermOutput,
+  GetItemsFromProviderInput,
+  GetItemsFromProviderOutput,
+} from '@interfaces/item.interface';
 import {
   GetRefundsFromConsumerInput,
   GetRefundsFromConsumerOutput,
@@ -43,15 +43,15 @@ import {
 import {
   CreateReviewInput,
   CreateReviewOutput,
-  GetReviewsOnProductInput,
-  GetReviewsOnProductOutput,
+  GetReviewsOnItemInput,
+  GetReviewsOnItemOutput,
 } from '@interfaces/review.interface';
 import { getToken } from '@store';
 import { AxiosResponse } from 'axios';
 import {
   GetAllCategoriesOutput,
-  GetProductsByCategoryIdInput,
-  GetProductsByCategoryIdOutput,
+  GetItemsByCategoryIdInput,
+  GetItemsByCategoryIdOutput,
 } from 'src/interfaces/category.interface';
 import {
   ChangePasswordInput,
@@ -124,16 +124,30 @@ export const changePasswordAPI = async (data: ChangePasswordInput) => {
 
 export const logoutAPI = () => API.delete('/logout');
 
-// Product APIs
+// category API
+// export const getCategories = (params = null) => API.get<Category[]>('/categories', { params });
+export const getCategories = async () => {
+  let response: AxiosResponse<GetAllCategoriesOutput>;
+  try {
+    response = await PlainAPI.get<GetAllCategoriesOutput>('/categories');
+  } catch (error) {
+    console.error(error);
+  }
+  const result = response.data;
+  return result;
+};
+// export const getCategory = (slug: string) => API.get<GetAllCategoriesOutput>(`/items/${slug}`);
 
-export const getProductsByCategoryId = async ({
+// Item APIs
+
+export const getItemsByCategoryId = async ({
   categoryId,
   sort = 'createdAt desc',
   page = 1,
-}: GetProductsByCategoryIdInput): Promise<GetProductsByCategoryIdOutput> => {
-  let response: AxiosResponse<GetProductsByCategoryIdOutput>;
+}: GetItemsByCategoryIdInput): Promise<GetItemsByCategoryIdOutput> => {
+  let response: AxiosResponse<GetItemsByCategoryIdOutput>;
   try {
-    response = await API.get<GetProductsByCategoryIdOutput>(`/categories/${categoryId}`, {
+    response = await API.get<GetItemsByCategoryIdOutput>(`/categories/${categoryId}`, {
       params: {
         sort,
         page,
@@ -146,14 +160,14 @@ export const getProductsByCategoryId = async ({
   return result;
 };
 
-export const getProductsBySearchTermAPI = async ({
+export const getItemsBySearchTermAPI = async ({
   page = 1,
   query,
   sort,
-}: GetProductsBySearchTermInput): Promise<GetProductsBySearchTermOutput> => {
-  let response: AxiosResponse<GetProductsBySearchTermOutput>;
+}: GetItemsBySearchTermInput): Promise<GetItemsBySearchTermOutput> => {
+  let response: AxiosResponse<GetItemsBySearchTermOutput>;
   try {
-    response = await API.get<GetProductsBySearchTermOutput>(`/products`, {
+    response = await API.get<GetItemsBySearchTermOutput>(`/items`, {
       params: {
         page,
         query,
@@ -167,10 +181,10 @@ export const getProductsBySearchTermAPI = async ({
   return result;
 };
 
-export const findProductById = async ({ productId }: FindProductByIdInput): Promise<FindProductByIdOutput> => {
-  let response: AxiosResponse<FindProductByIdOutput>;
+export const findItemById = async ({ itemId }: FindItemByIdInput): Promise<FindItemByIdOutput> => {
+  let response: AxiosResponse<FindItemByIdOutput>;
   try {
-    response = await API.get<FindProductByIdOutput>(`/products/${productId}`);
+    response = await API.get<FindItemByIdOutput>(`/items/${itemId}`);
   } catch (error) {
     console.error(error);
   }
@@ -178,13 +192,13 @@ export const findProductById = async ({ productId }: FindProductByIdInput): Prom
   return result;
 };
 
-export const getProductsFromProvider = async ({
+export const getItemsFromProvider = async ({
   page,
   sort,
-}: GetProductsFromProviderInput): Promise<GetProductsFromProviderOutput> => {
-  let response: AxiosResponse<GetProductsFromProviderOutput>;
+}: GetItemsFromProviderInput): Promise<GetItemsFromProviderOutput> => {
+  let response: AxiosResponse<GetItemsFromProviderOutput>;
   try {
-    response = await API.get<GetProductsFromProviderOutput>('/products/provider', {
+    response = await API.get<GetItemsFromProviderOutput>('/items/provider', {
       params: {
         page,
         sort,
@@ -197,10 +211,10 @@ export const getProductsFromProvider = async ({
   return result;
 };
 
-export const addProduct = async (data: AddProductInput): Promise<AddProductOutput> => {
-  let response: AxiosResponse<AddProductOutput>;
+export const addItem = async (data: AddItemInput): Promise<AddItemOutput> => {
+  let response: AxiosResponse<AddItemOutput>;
   try {
-    response = await API.post<AddProductOutput>('/products', data);
+    response = await API.post<AddItemOutput>('/items', data);
   } catch (error) {
     console.error(error);
   }
@@ -208,15 +222,15 @@ export const addProduct = async (data: AddProductInput): Promise<AddProductOutpu
   return result;
 };
 
-export const editProduct = async ({
-  productId,
+export const editItem = async ({
+  itemId,
   categoryName,
   images,
   infos,
   name,
   price,
   stock,
-}: EditProductInput): Promise<EditProductOutput> => {
+}: EditItemInput): Promise<EditItemOutput> => {
   const data = {
     categoryName,
     images,
@@ -225,9 +239,9 @@ export const editProduct = async ({
     price,
     stock,
   };
-  let response: AxiosResponse<EditProductOutput>;
+  let response: AxiosResponse<EditItemOutput>;
   try {
-    response = await API.put<EditProductOutput>(`/products/${productId}`, data);
+    response = await API.put<EditItemOutput>(`/items/${itemId}`, data);
   } catch (error) {
     console.error(error);
   }
@@ -235,30 +249,16 @@ export const editProduct = async ({
   return result;
 };
 
-export const deleteProduct = async ({ productId }: DeleteProductInput): Promise<DeleteProductOutput> => {
-  let response: AxiosResponse<DeleteProductOutput>;
+export const deleteItem = async ({ itemId }: DeleteItemInput): Promise<DeleteItemOutput> => {
+  let response: AxiosResponse<DeleteItemOutput>;
   try {
-    response = await API.delete<DeleteProductOutput>(`/products/${productId}`);
+    response = await API.delete<DeleteItemOutput>(`/items/${itemId}`);
   } catch (error) {
     console.error(error);
   }
   const result = response.data;
   return result;
 };
-
-// category API
-// export const getCategories = (params = null) => API.get<Category[]>('/categories', { params });
-export const getCategories = async () => {
-  let response: AxiosResponse<GetAllCategoriesOutput>;
-  try {
-    response = await PlainAPI.get<GetAllCategoriesOutput>('/categories');
-  } catch (error) {
-    console.error(error);
-  }
-  const result = response.data;
-  return result;
-};
-// export const getCategory = (slug: string) => API.get<GetAllCategoriesOutput>(`/products/${slug}`);
 
 // upload API
 
@@ -445,20 +445,20 @@ export const findLikeList = async (): Promise<FindLikeListOutput> => {
   const result = response.data;
   return result;
 };
-export const likeProductAPI = async ({ productId }: LikeProductInput): Promise<LikeProductOutput> => {
-  let response: AxiosResponse<LikeProductOutput>;
+export const likeItemAPI = async ({ itemId }: LikeItemInput): Promise<LikeItemOutput> => {
+  let response: AxiosResponse<LikeItemOutput>;
   try {
-    response = await API.put<LikeProductOutput>(`/likes/products/${productId}/add`);
+    response = await API.put<LikeItemOutput>(`/likes/items/${itemId}/add`);
   } catch (error) {
     console.error(error);
   }
   const result = response.data;
   return result;
 };
-export const unlikeProductAPI = async ({ productId }: UnlikeProductInput): Promise<UnlikeProductOutput> => {
-  let response: AxiosResponse<UnlikeProductOutput>;
+export const unlikeItemAPI = async ({ itemId }: UnlikeItemInput): Promise<UnlikeItemOutput> => {
+  let response: AxiosResponse<UnlikeItemOutput>;
   try {
-    response = await API.put<UnlikeProductOutput>(`/likes/products/${productId}/remove`);
+    response = await API.put<UnlikeItemOutput>(`/likes/items/${itemId}/remove`);
   } catch (error) {
     console.error(error);
   }
@@ -469,7 +469,7 @@ export const unlikeProductAPI = async ({ productId }: UnlikeProductInput): Promi
 // review APIs
 
 export const createReviewAPI = async ({
-  productId,
+  itemId,
   content,
   rating,
   images,
@@ -481,7 +481,7 @@ export const createReviewAPI = async ({
     images,
   };
   try {
-    response = await API.post<CreateReviewOutput>(`/reviews/products/${productId}`, data);
+    response = await API.post<CreateReviewOutput>(`/reviews/items/${itemId}`, data);
   } catch (error) {
     console.error(error);
   }
@@ -489,13 +489,13 @@ export const createReviewAPI = async ({
   return result;
 };
 
-export const getReviewOnProductAPI = async ({
+export const getReviewOnItemAPI = async ({
   page = 1,
-  productId,
-}: GetReviewsOnProductInput): Promise<GetReviewsOnProductOutput> => {
-  let response: AxiosResponse<GetReviewsOnProductOutput>;
+  itemId,
+}: GetReviewsOnItemInput): Promise<GetReviewsOnItemOutput> => {
+  let response: AxiosResponse<GetReviewsOnItemOutput>;
   try {
-    response = await API.get<GetReviewsOnProductOutput>(`/reviews/product/${productId}`, {
+    response = await API.get<GetReviewsOnItemOutput>(`/reviews/item/${itemId}`, {
       params: {
         page,
       },

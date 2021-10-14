@@ -1,11 +1,16 @@
 import React from 'react';
 import { Router } from 'framework7/types';
+
 import packageJson from '../../../package.json';
+import { User } from 'src/interfaces/user.interface';
+import { InfoItem } from '@interfaces/item.interface';
 export * from './schema';
 
 /** 리터럴 혹은 불변 객체 */
 export const TOKEN_KEY = `${packageJson.name}_TOKEN`;
 export const CSRF_KEY = `${packageJson.name}_CSRF`;
+export const SHOPPING_LIST = `${packageJson.name}_SHOPPING_LIST`;
+export const DELIVERY_FEE = 2500;
 
 export const ACTIONS = {
   NEW: 'new',
@@ -25,7 +30,7 @@ export interface Token {
 
 export interface AuthState extends Token {
   // isLoading: boolean;
-  currentUser: any; // TODO currentUser 인터페이스화
+  currentUser: User; // TODO currentUser 인터페이스화
 }
 
 export interface TokenPayload {
@@ -36,6 +41,12 @@ export interface TokenPayload {
 export interface PageRouteProps {
   f7route: Router.Route;
   f7router: Router.Router;
+}
+
+export interface EditProductInfoProps extends PageRouteProps {
+  productId: string;
+  productInfos: InfoItem[];
+  currentImageUrls: string[];
 }
 
 export interface Address {

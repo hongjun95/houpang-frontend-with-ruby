@@ -1,11 +1,11 @@
 import { CoreOutput, CoreEntity, PaginationInput, PaginationOutput } from './core.interface';
-import { Product } from './product.interface';
+import { Item } from './item.interface';
 import { User } from './user.interface';
 
 export interface Review extends CoreEntity {
   commenter: User;
   reviewedAt: string;
-  product: Product;
+  item: Item;
   content: string;
   rating: number;
   images: string[];
@@ -13,7 +13,7 @@ export interface Review extends CoreEntity {
 
 // create review
 export interface CreateReviewInput extends Pick<Review, 'content' | 'rating' | 'images'> {
-  productId: string;
+  itemId: string;
 }
 export interface CreateReviewOutput extends CoreOutput {
   review?: Review;
@@ -22,11 +22,11 @@ export interface CreateReviewForm extends Pick<Review, 'content'> {
   images: Array<File>;
 }
 
-// Get Review on Product
-export interface GetReviewsOnProductInput extends PaginationInput {
-  productId: string;
+// Get Review on Item
+export interface GetReviewsOnItemInput extends PaginationInput {
+  itemId: string;
 }
-export interface GetReviewsOnProductOutput extends PaginationOutput {
+export interface GetReviewsOnItemOutput extends PaginationOutput {
   reviews?: Review[];
   avgRating?: number;
 }

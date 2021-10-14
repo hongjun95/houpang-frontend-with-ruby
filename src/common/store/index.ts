@@ -1,4 +1,4 @@
-import { TOKEN_KEY, CSRF_KEY, Token } from '@constants';
+import { TOKEN_KEY, CSRF_KEY, Token, SHOPPING_LIST } from '@constants';
 
 export const getToken = (): Token => ({
   csrf: window.localStorage.getItem(CSRF_KEY),
@@ -13,6 +13,26 @@ export const saveToken = ({ token, csrf }: Token) => {
 export const destroyToken = () => {
   window.localStorage.removeItem(TOKEN_KEY);
   window.localStorage.removeItem(CSRF_KEY);
+};
+
+export interface IShoppingItem {
+  id: string;
+  name: string;
+  price: number;
+  imageUrl: string;
+  orderCount: number;
+}
+export const getShoppingList = (userId: string): Array<IShoppingItem> =>
+  JSON.parse(localStorage.getItem(`${SHOPPING_LIST}-${userId}`)) || [];
+export const existedItemOnShoppingList = (userId: string, productId: string): boolean => {
+  const shoppingList = getShoppingList(userId);
+  return !!shoppingList.find((item) => item.id === productId);
+};
+export const saveShoppingList = (userId: string, shoppingList: Array<IShoppingItem>): void => {
+  localStorage.setItem(`${SHOPPING_LIST}-${userId}`, JSON.stringify(shoppingList));
+};
+export const removeItemFromShoppingList = (userId: string, shoppingList: Array<IShoppingItem>): void => {
+  localStorage.setItem(`${SHOPPING_LIST}-${userId}`, JSON.stringify(shoppingList));
 };
 
 export default { getToken, saveToken, destroyToken };

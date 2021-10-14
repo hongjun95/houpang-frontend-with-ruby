@@ -1,5 +1,5 @@
 import { CoreEntity, CoreOutput, PaginationInput, PaginationOutput } from './core.interface';
-import { Product } from './product.interface';
+import { Item } from './item.interface';
 import { User } from './user.interface';
 
 export enum OrderStatus {
@@ -21,7 +21,7 @@ export interface Order extends CoreEntity {
 
 export interface OrderItem extends CoreEntity {
   order: Order;
-  product: Product;
+  item: Item;
   count: number;
   status: OrderStatus;
 }
@@ -50,7 +50,7 @@ export interface OrderForm {
   deliverRequest?: string;
 }
 export interface CreateOrderItemInput {
-  productId: string;
+  itemId: string;
   count: number;
 }
 export interface CreateOrderInput {
