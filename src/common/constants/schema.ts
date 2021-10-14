@@ -20,6 +20,7 @@ export interface Category extends DefaultProps {
   title: string;
   body: string;
   image_path: string;
+  coverImg: string;
 }
 
 export interface Image extends DefaultProps {

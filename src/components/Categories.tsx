@@ -38,7 +38,7 @@ const Categories = () => {
               className="bg-white h-20 flex flex-col items-center justify-center"
               key={category.id}
             >
-              <img src={API_URL + category.image_path} alt="#" className="w-14 h-14 rounded-lg shadow-sm" />
+              <img src={category.coverImg} alt="#" className="w-14 h-14 rounded-lg shadow-sm" />
               <span className="text-gray-500 mt-1">{category.title}</span>
             </Link>
           ) : (
