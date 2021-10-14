@@ -27,7 +27,7 @@ export interface Refund extends CoreEntity {
 // Request Refund
 
 export interface RequestRefundInput {
-  orderItemId: string;
+  order_item_id: string;
   count: number;
   problemTitle: string;
   problemDescription: string;

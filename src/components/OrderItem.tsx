@@ -66,7 +66,7 @@ const OrderItemComponent: React.FC<OrderItemProps> = ({
     try {
       cancelOrderItemMutation.mutate(
         {
-          orderItemId: orderItem.id,
+          order_item_id: orderItem.id,
         },
         {
           onSuccess,
@@ -93,8 +93,8 @@ const OrderItemComponent: React.FC<OrderItemProps> = ({
     f7.dialog.preloader('잠시만 기다려주세요...');
     try {
       const { ok, error } = await updateOrderStatusAPI({
-        orderItemId: orderItem.id,
-        orderStatus: OrderStatus.Received,
+        order_item_id: orderItem.id,
+        status: OrderStatus.Received,
       });
       if (ok) {
         f7.dialog.alert('주문을 수락하였습니다.');

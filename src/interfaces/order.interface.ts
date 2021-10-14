@@ -59,24 +59,24 @@ export interface CreateOrderInput {
   deliver_request: string;
 }
 export interface CreateOrderOutput extends CoreOutput {
-  orderId?: string;
+  order_id?: string;
 }
 
 // Cancel order
 
 export interface CancelOrderItemInput {
-  orderItemId: string;
+  order_item_id: string;
 }
 export interface CancelOrderItemOutput extends CoreOutput {
-  orderItem?: OrderItem;
+  order_item?: OrderItem;
 }
 
 // Update order status
 
 export interface UpdateOrerStatusInput {
-  orderItemId: string;
-  orderStatus: OrderStatus;
+  order_item_id: string;
+  status: OrderStatus;
 }
 export interface UpdateOrerStatusOutput extends CoreOutput {
-  orderItem?: OrderItem;
+  order_item?: OrderItem;
 }

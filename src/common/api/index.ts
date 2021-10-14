@@ -322,10 +322,10 @@ export const createOrderAPI = async (data: CreateOrderInput): Promise<CreateOrde
   return result;
 };
 
-export const cancelOrderItemAPI = async ({ orderItemId }: CancelOrderItemInput): Promise<CancelOrderItemOutput> => {
+export const cancelOrderItemAPI = async ({ order_item_id }: CancelOrderItemInput): Promise<CancelOrderItemOutput> => {
   let response: AxiosResponse<CancelOrderItemOutput>;
   try {
-    response = await API.put<CancelOrderItemOutput>(`/orders/order-item/${orderItemId}`);
+    response = await API.put<CancelOrderItemOutput>(`/orders/order-item/${order_item_id}`);
   } catch (error) {
     console.error(error);
   }
@@ -334,14 +334,14 @@ export const cancelOrderItemAPI = async ({ orderItemId }: CancelOrderItemInput):
 };
 
 export const updateOrderStatusAPI = async ({
-  orderItemId,
-  orderStatus,
+  order_item_id,
+  status,
 }: UpdateOrerStatusInput): Promise<UpdateOrerStatusOutput> => {
   let response: AxiosResponse<UpdateOrerStatusOutput>;
   try {
-    response = await API.put<UpdateOrerStatusOutput>(`/orders/order-item/${orderItemId}/update`, null, {
+    response = await API.put<UpdateOrerStatusOutput>(`/orders/order-item/${order_item_id}/update`, null, {
       params: {
-        orderStatus,
+        status,
       },
     });
   } catch (error) {
@@ -354,7 +354,7 @@ export const updateOrderStatusAPI = async ({
 // Refund APIs
 
 export const requestRefundAPI = async ({
-  orderItemId,
+  order_item_id,
   status,
   count,
   problemTitle,
@@ -381,7 +381,7 @@ export const requestRefundAPI = async ({
     sendPlace,
   };
   try {
-    response = await API.post<RequestRefundOutput>(`/refunds/order-item/${orderItemId}/refund`, body, {
+    response = await API.post<RequestRefundOutput>(`/refunds/order-item/${order_item_id}/refund`, body, {
       params: {
         status,
       },

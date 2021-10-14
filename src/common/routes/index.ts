@@ -113,19 +113,4 @@ const routes: Router.RouteParameters[] = [
   { path: '(.*)', component: NotFoundPage },
 ];
 
-// const routes = [
-//   { path: '/', component: HomePage },
-//   { path: '/users/sign_in', component: LoginPage },
-//   { path: '/users/sign_up', component: SignUpPage },
-//   { path: '/intro', component: IntroPage },
-//   { path: '/mypage', component: MyPage },
-//   { path: '/items', component: ItemIndexPage },
-//   { path: '/items/:id', component: ItemShowPage },
-//   { path: '/posts', component: PostIndexPage },
-//   { path: '/posts/new', component: PostNewPage },
-//   { path: '/posts/:id', component: PostShowPage },
-//   { path: '/posts/:id/edit', component: PostEditPage },
-//   { path: '(.*)', component: NotFoundPage },
-// ];
-
 export default routes;
