@@ -13,10 +13,10 @@ export interface InfoItem {
 export interface Item extends CoreEntity {
   name: string;
   provider: User;
-  price: number;
+  sale_price: number;
   stock: number;
   avgRating?: number;
-  images: string[];
+  productImages: string[];
   category: Category;
   infos?: InfoItem[];
   orderItems: OrderItem[];

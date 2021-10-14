@@ -43,9 +43,9 @@ export interface PageRouteProps {
   f7router: Router.Router;
 }
 
-export interface EditProductInfoProps extends PageRouteProps {
-  productId: string;
-  productInfos: InfoItem[];
+export interface EditItemInfoProps extends PageRouteProps {
+  itemId: string;
+  itemInfos: InfoItem[];
   currentImageUrls: string[];
 }
 

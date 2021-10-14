@@ -15,28 +15,28 @@ export const authState = atom<AuthState>({
   default: initialAuthState,
 });
 
-export const productNameAtom = atom<string>({
-  key: 'productNameAtom',
+export const itemNameAtom = atom<string>({
+  key: 'itemNameAtom',
   default: '',
 });
 
-export const productPriceAtom = atom<number>({
-  key: 'productPriceAtom',
+export const itemPriceAtom = atom<number>({
+  key: 'itemPriceAtom',
   default: 0,
 });
 
-export const productCategoryNameAtom = atom<string>({
-  key: 'productCategoryNameAtom',
+export const itemCategoryNameAtom = atom<string>({
+  key: 'itemCategoryNameAtom',
   default: '',
 });
 
-export const productStockAtom = atom<number>({
-  key: 'productStockAtom',
+export const itemStockAtom = atom<number>({
+  key: 'itemStockAtom',
   default: 0,
 });
 
-export const productImgFilesAtom = atom<File[]>({
-  key: 'productImgFilesAtom',
+export const itemImgFilesAtom = atom<File[]>({
+  key: 'itemImgFilesAtom',
   default: [],
 });
 

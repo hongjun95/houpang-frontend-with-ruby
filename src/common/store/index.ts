@@ -24,9 +24,9 @@ export interface IShoppingItem {
 }
 export const getShoppingList = (userId: string): Array<IShoppingItem> =>
   JSON.parse(localStorage.getItem(`${SHOPPING_LIST}-${userId}`)) || [];
-export const existedItemOnShoppingList = (userId: string, productId: string): boolean => {
+export const existedItemOnShoppingList = (userId: string, itemId: string): boolean => {
   const shoppingList = getShoppingList(userId);
-  return !!shoppingList.find((item) => item.id === productId);
+  return !!shoppingList.find((item) => item.id === itemId);
 };
 export const saveShoppingList = (userId: string, shoppingList: Array<IShoppingItem>): void => {
   localStorage.setItem(`${SHOPPING_LIST}-${userId}`, JSON.stringify(shoppingList));

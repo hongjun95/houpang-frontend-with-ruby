@@ -8,7 +8,7 @@ export const likeKeys = {
   detail: (id: string) => [...likeKeys.details(), id] as const,
 };
 
-// Product Keys
+// Item Keys
 
 export const itemKeys = {
   all: ['items'] as const,
