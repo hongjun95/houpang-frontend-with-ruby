@@ -1,15 +1,22 @@
-import { logoutAPI } from '@api';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Link, Toolbar, View, Views } from 'framework7-react';
+import { useQuery } from 'react-query';
+import { useSetRecoilState } from 'recoil';
+
 import CustomPanel from '@components/shared/CustomPanel';
 import useAuth from '@hooks/useAuth';
 import LandingPage from '@pages/landing';
 import { destroyToken, getToken } from '@store';
 import { sleep } from '@utils/index';
-import { Link, Toolbar, View, Views } from 'framework7-react';
-import React, { useCallback, useEffect, useState } from 'react';
+import { likeKeys } from '@reactQuery/query-keys';
+import { FindLikeListOutput, Like } from '@interfaces/like.interface';
+import { findLikeList, logoutAPI } from '@api';
+import { likeListAtom } from '@atoms';
 
 const F7Views = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { currentUser, isAuthenticated, authenticateUser, unAuthenticateUser } = useAuth();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const setLikeList = useSetRecoilState<Like>(likeListAtom);
 
   const logoutHandler = useCallback(async () => {
     try {
@@ -36,6 +43,11 @@ const F7Views = () => {
       }
     })();
   }, []);
+
+  const { data, status } = useQuery<FindLikeListOutput, Error>(likeKeys.detail(currentUser?.id), findLikeList);
+  if (status === 'success') {
+    setLikeList(data.likeList);
+  }
 
   if (isLoading) {
     return <LandingPage />;

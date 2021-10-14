@@ -29,7 +29,7 @@ import EditItemInfoPage from '@pages/items/edit-item-info';
 // import SelectSolutionPage from '@pages/refunds/select-solution';
 // import RefundListPage from '@pages/refunds/refund-list';
 
-// import ShoppingListPage from '@pages/shopping-lists/shopping-list';
+import ShoppingListPage from '@pages/shopping-lists/shopping-list';
 
 // import CreateReviewPage from '@pages/reviews/create-review';
 // import ReviewListPage from '@pages/reviews/review-list';
@@ -66,7 +66,7 @@ const itemPages = [
   // { path: '/items/add', component: AddItemPage },
   // { path: '/items/add-info', component: AddItemInfoPage },
   // { path: '/items/manage', component: ManageItemsPage },
-  // { path: '/items/:id', component: ItemDetailPage },
+  { path: '/items/:id', component: ItemDetailPage },
   // { path: '/items/:id/edit', component: EditItemPage },
   // { path: '/items/:id/edit-info', component: EditItemInfoPage },
 ];
@@ -84,7 +84,7 @@ const refundPages = [
 ];
 
 const listPages = [
-  // { path: '/shopping-list', component: ShoppingListPage }, //
+  { path: '/shopping-list', component: ShoppingListPage }, //
 ];
 
 const reviewPages = [
