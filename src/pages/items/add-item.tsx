@@ -11,13 +11,7 @@ import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import { getCategories } from '@api';
 import { AddItemForm } from '@interfaces/item.interface';
 import { GetAllCategoriesOutput } from '@interfaces/category.interface';
-import {
-  itemCategoryNameAtom,
-  itemImgFilesAtom,
-  itemNameAtom,
-  itemPriceAtom,
-  itemStockAtom,
-} from '@atoms';
+import { itemCategoryNameAtom, itemImgFilesAtom, itemNameAtom, itemPriceAtom, itemStockAtom } from '@atoms';
 import PreviewImg from '@components/PreviewImg';
 
 const AddItemSchema: Yup.SchemaOf<AddItemForm> = Yup.object().shape({
@@ -26,7 +20,7 @@ const AddItemSchema: Yup.SchemaOf<AddItemForm> = Yup.object().shape({
   price: Yup.number() //
     .min(0)
     .required('필수 입력사항 입니다'),
-  categoryName: Yup.string() //
+  category_name: Yup.string() //
     .required('필수 입력사항 입니다'),
   stock: Yup.number() //
     .min(0)
@@ -47,7 +41,7 @@ const AddItemPage = ({ f7router, f7route }) => {
   const initialValues: AddItemForm = {
     name: '',
     price: 0,
-    categoryName: '패션의류',
+    category_name: '패션의류',
     stock: 0,
     images: [],
   };
@@ -58,14 +52,14 @@ const AddItemPage = ({ f7router, f7route }) => {
     setSubmitting(false);
 
     try {
-      const { name, price, categoryName, stock, images } = values;
+      const { name, price, category_name, stock, images } = values;
 
       if (images.length !== 0) {
         setItemImgFile(images);
       }
       setItemhName(name);
       setItemPrice(price);
-      setItemCategoryName(categoryName);
+      setItemCategoryName(category_name);
       setStockAtom(stock);
       f7router.navigate('/items/add-info');
     } catch (e) {
@@ -96,9 +90,7 @@ const AddItemPage = ({ f7router, f7route }) => {
       <Formik
         initialValues={initialValues}
         validationSchema={AddItemSchema}
-        onSubmit={(values, { setSubmitting }: FormikHelpers<AddItemForm>) =>
-          handleItemContent(values, setSubmitting)
-        }
+        onSubmit={(values, { setSubmitting }: FormikHelpers<AddItemForm>) => handleItemContent(values, setSubmitting)}
         validateOnMount
       >
         {({ handleChange, handleBlur, setFieldValue, values, errors, touched, isSubmitting, isValid }) => (
@@ -143,10 +135,10 @@ const AddItemPage = ({ f7router, f7route }) => {
               />
               {status === 'success' && (
                 <ListItem title="카테고리" smartSelect>
-                  <select name="categoryName" defaultValue={`${data.categories[0].name}`}>
+                  <select name="category_name" defaultValue={`${data.categories[0].title}`}>
                     {data.categories.map((category) => (
-                      <option key={category.id} value={`${category.name}`}>
-                        {category.name}
+                      <option key={category.id} value={`${category.title}`}>
+                        {category.title}
                       </option>
                     ))}
                   </select>

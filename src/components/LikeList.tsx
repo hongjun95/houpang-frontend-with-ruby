@@ -1,14 +1,13 @@
 import React from 'react';
 import { f7 } from 'framework7-react';
+import { useRecoilState, SetterOrUpdater } from 'recoil';
 
 import { formmatPrice } from '@utils/index';
 import { existedItemOnShoppingList, getShoppingList, IShoppingItem, saveShoppingList } from '@store';
-import { useRecoilState } from 'recoil';
 import { Like } from '@interfaces/like.interface';
 import { likeListAtom } from '@atoms';
 import { unlikeItemAPI } from '@api';
 import { User } from '@interfaces/user.interface';
-import { SetterOrUpdater } from 'recoil';
 
 interface LikeListProps {
   currentUser: User;
@@ -58,13 +57,13 @@ const LikeList: React.FC<LikeListProps> = ({ currentUser, setShoppingList }) => 
         likeList.items.map((item) => (
           <div className="pb-2 border-b border-gray-400 mx-2 my-4" key={item.id}>
             <div className="flex min-w-full">
-              <img src={item.images[0]} alt="" className="w-1/4 mr-4" />
+              <img src={item.product_images[0]} alt="" className="w-1/4 mr-4" />
               <div className="w-80 flex flex-col justify-between">
                 <div className="flex mb-4">
                   <span className="font-bold truncate w-full">{item.name}</span>
                 </div>
                 <div className="mb-4">
-                  <span className="font-bold text-lg">{formmatPrice(item.price)}</span>
+                  <span className="font-bold text-lg">{formmatPrice(item.sale_price)}</span>
                   <span>원</span>
                 </div>
                 <div className="flex items-center">
@@ -84,9 +83,9 @@ const LikeList: React.FC<LikeListProps> = ({ currentUser, setShoppingList }) => 
                       onAddItemToShoppingList(e, {
                         id: item.id,
                         name: item.name,
-                        price: item.price,
+                        price: item.sale_price,
                         orderCount: 1,
-                        imageUrl: item.images[0],
+                        imageUrl: item.product_images[0],
                       })
                     }
                     disabled={existedItemOnShoppingList(currentUser.id, item.id)}

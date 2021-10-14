@@ -34,7 +34,7 @@ const EditItemInfoPage = ({ f7router, f7route }) => {
     price: Yup.number() //
       .min(0)
       .required('필수 입력사항 입니다'),
-    categoryName: Yup.string() //
+    category_name: Yup.string() //
       .required('필수 입력사항 입니다'),
     stock: Yup.number() //
       .min(0)
@@ -44,8 +44,8 @@ const EditItemInfoPage = ({ f7router, f7route }) => {
 
   const initialValues: EditItemForm = {
     name: itemData.item.name,
-    price: itemData.item.price,
-    categoryName: itemData.item.category.name,
+    price: itemData.item.sale_price,
+    category_name: itemData.item.category.title,
     stock: itemData.item.stock,
     images: [],
   };
@@ -56,20 +56,20 @@ const EditItemInfoPage = ({ f7router, f7route }) => {
     setSubmitting(false);
 
     try {
-      const { name, price, categoryName, stock, images } = values;
+      const { name, price, category_name, stock, images } = values;
 
       if (images.length !== 0) {
         setItemImgFile(images);
       }
       setItemhName(name);
       setItemPrice(price);
-      setItemCategoryName(categoryName);
+      setItemCategoryName(category_name);
       setStockAtom(stock);
       f7router.navigate(`/items/${itemId}/edit-info`, {
         props: {
           itemId,
           itemInfos: itemData.item.infos || [],
-          currentImageUrls: itemData.item.images,
+          currentImageUrls: itemData.item.product_images,
         },
       });
     } catch (e) {
@@ -145,10 +145,10 @@ const EditItemInfoPage = ({ f7router, f7route }) => {
               />
               {status === 'success' && (
                 <ListItem title="카테고리" smartSelect>
-                  <select name="categoryName" defaultValue={`${categoryData.categories[0].name}`}>
+                  <select name="category_name" defaultValue={`${categoryData.categories[0].title}`}>
                     {categoryData.categories.map((category) => (
-                      <option key={category.id} value={`${category.name}`}>
-                        {category.name}
+                      <option key={category.id} value={`${category.title}`}>
+                        {category.title}
                       </option>
                     ))}
                   </select>
