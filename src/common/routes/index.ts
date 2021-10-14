@@ -21,8 +21,8 @@ import ManageItemsPage from '@pages/items/manage-itmes';
 import EditItemPage from '@pages/items/edit-item';
 import EditItemInfoPage from '@pages/items/edit-item-info';
 
-// import OrderPage from '@pages/orders/order';
-// import OrderListPage from '@pages/orders/order-list';
+import OrderPage from '@pages/orders/order';
+import OrderListPage from '@pages/orders/order-list';
 
 // import SelectProdcutPage from '@pages/refunds/select-item';
 // import SelectReasonPage from '@pages/refunds/select-reason';
@@ -72,8 +72,8 @@ const itemPages = [
 ];
 
 const orderPages = [
-  // { path: '/order', component: OrderPage },
-  // { path: '/orders', component: OrderListPage },
+  { path: '/order', component: OrderPage },
+  { path: '/orders', component: OrderListPage },
 ];
 
 const refundPages = [

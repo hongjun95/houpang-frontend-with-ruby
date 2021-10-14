@@ -32,7 +32,7 @@ const OrderProviderList: React.FC<OrderProviderListProps> = ({ currentUser, canc
     ordersFromProvider.list({ providerId: currentUser.id }),
     ({ pageParam }) =>
       getOrdersFromProviderAPI({
-        providerId: currentUser.id,
+        provider_id: currentUser.id,
         page: pageParam,
       }),
     {

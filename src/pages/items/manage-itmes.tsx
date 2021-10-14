@@ -197,7 +197,7 @@ const ManageItemsPage = ({ f7route, f7router }) => {
                                 className="text-xl"
                               />
                             </div>
-                            <div className="text-blue-500 text-base mb-1">({item.reviews.length})</div>
+                            {/* <div className="text-blue-500 text-base mb-1">({item.reviews.length})</div> */}
                           </div>
                         </div>
                       </Link>
@@ -229,7 +229,7 @@ const ManageItemsPage = ({ f7route, f7router }) => {
                                 className="text-xl"
                               />
                             </div>
-                            <div className="text-blue-500 text-base mb-1">({item.reviews.length})</div>
+                            {/* <div className="text-blue-500 text-base mb-1">({item.reviews.length})</div> */}
                           </div>
                         </div>
                       </a>

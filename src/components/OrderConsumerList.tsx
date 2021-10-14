@@ -22,6 +22,8 @@ const OrderConsumerList: React.FC<OrderConsumerListProps> = ({ currentUser, canc
   const { ref, inView, entry } = useInView({
     threshold: 0,
   });
+
+  console.log(currentUser);
   const {
     fetchNextPage, //
     refetch,
@@ -35,7 +37,7 @@ const OrderConsumerList: React.FC<OrderConsumerListProps> = ({ currentUser, canc
     ordersFromConsumer.list({ consumerId: currentUser.id }),
     ({ pageParam }) =>
       getOrdersFromConsumerAPI({
-        consumerId: currentUser.id,
+        consumer_id: currentUser.id,
         page: pageParam,
       }),
     {
@@ -63,6 +65,10 @@ const OrderConsumerList: React.FC<OrderConsumerListProps> = ({ currentUser, canc
     }
   };
 
+  if (status === 'success') {
+    console.log(data.pages);
+  }
+
   return (
     <>
       {status === 'error' ? (
@@ -80,11 +86,11 @@ const OrderConsumerList: React.FC<OrderConsumerListProps> = ({ currentUser, canc
               {page?.orders.map((order) => (
                 <Order
                   key={order.id}
-                  created_at={order.orderedAt}
+                  created_at={order.ordered_at}
                   destination={order.destination}
-                  deliverRequest={order.deliverRequest}
+                  deliverRequest={order.deliver_request}
                 >
-                  {order?.orderItems?.map((orderItem) => (
+                  {order?.order_items?.map((orderItem) => (
                     <OrderItem
                       key={orderItem.id}
                       userId={currentUser.id}

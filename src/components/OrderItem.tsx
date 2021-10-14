@@ -116,10 +116,10 @@ const OrderItemComponent: React.FC<OrderItemProps> = ({
       </div>
       <div className="flex">
         <a href={`/items/${orderItem.item.id}`}>
-          <img src={orderItem.item.images[0]} alt="" className="w-24 h-24 mr-4" />
+          <img src={orderItem.item.product_images[0]} alt="" className="w-24 h-24 mr-4" />
         </a>
         {/* <div
-          style={{ backgroundImage: `url(${orderItem.item.images[0]})` }}
+          style={{ backgroundImage: `url(${orderItem.item.product_images[0]})` }}
           className=" bg-gray-200 bg-center bg-cover w-24 h-24 mr-4"
         ></div> */}
         <div className="overflow-hidden w-3/4 flex flex-col justify-between h-full">
@@ -129,7 +129,7 @@ const OrderItemComponent: React.FC<OrderItemProps> = ({
           <div className="flex justify-between items-center">
             <div className="flex text-gray-500 text-lg">
               <div>
-                <span>{formmatPrice(orderItem.item.price)}</span>
+                <span>{formmatPrice(orderItem.item.sale_price)}</span>
                 <span>원</span>
               </div>
               <span className="mx-1">&#183;</span>
@@ -146,9 +146,9 @@ const OrderItemComponent: React.FC<OrderItemProps> = ({
                   onAddItemToShoppingList(e, {
                     id: orderItem.item.id,
                     name: orderItem.item.name,
-                    price: orderItem.item.price,
+                    price: orderItem.item.sale_price,
                     orderCount: 1,
-                    imageUrl: orderItem.item.images[0],
+                    imageUrl: orderItem.item.product_images[0],
                   })
                 }
                 disabled={existedItemOnShoppingList(userId, orderItem.item.id)}

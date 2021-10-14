@@ -12,11 +12,11 @@ export enum OrderStatus {
 
 export interface Order extends CoreEntity {
   consumer: User;
-  orderItems: OrderItem[];
+  order_items: OrderItem[];
   total: number;
   destination: string;
-  deliverRequest: string;
-  orderedAt: string;
+  deliver_request: string;
+  ordered_at: string;
 }
 
 export interface OrderItem extends CoreEntity {
@@ -29,7 +29,7 @@ export interface OrderItem extends CoreEntity {
 // Get Orders from Consumer
 
 export interface GetOrdersFromConsumerInput extends PaginationInput {
-  consumerId: string;
+  consumer_id: string;
 }
 export interface GetOrdersFromConsumerOutput extends PaginationOutput {
   orders?: Order[];
@@ -38,7 +38,7 @@ export interface GetOrdersFromConsumerOutput extends PaginationOutput {
 // Get Orders from Provider
 
 export interface GetOrdersFromProviderInput extends PaginationInput {
-  providerId: string;
+  provider_id: string;
 }
 export interface GetOrdersFromProviderOutput extends PaginationOutput {
   orderItems?: OrderItem[];
@@ -47,16 +47,16 @@ export interface GetOrdersFromProviderOutput extends PaginationOutput {
 // Create order
 
 export interface OrderForm {
-  deliverRequest?: string;
+  deliver_request?: string;
 }
 export interface CreateOrderItemInput {
-  itemId: string;
+  item_id: number;
   count: number;
 }
 export interface CreateOrderInput {
-  createOrderItems: CreateOrderItemInput[];
+  create_order_items: CreateOrderItemInput[];
   destination: string;
-  deliverRequest: string;
+  deliver_request: string;
 }
 export interface CreateOrderOutput extends CoreOutput {
   orderId?: string;
