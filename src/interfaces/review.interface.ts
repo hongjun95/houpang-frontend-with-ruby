@@ -4,7 +4,7 @@ import { User } from './user.interface';
 
 export interface Review extends CoreEntity {
   commenter: User;
-  reviewedAt: string;
+  reviewed_at: string;
   item: Item;
   content: string;
   rating: number;
@@ -13,7 +13,7 @@ export interface Review extends CoreEntity {
 
 // create review
 export interface CreateReviewInput extends Pick<Review, 'content' | 'rating' | 'images'> {
-  itemId: string;
+  item_id: string;
 }
 export interface CreateReviewOutput extends CoreOutput {
   review?: Review;
@@ -24,9 +24,9 @@ export interface CreateReviewForm extends Pick<Review, 'content'> {
 
 // Get Review on Item
 export interface GetReviewsOnItemInput extends PaginationInput {
-  itemId: string;
+  item_id: string;
 }
 export interface GetReviewsOnItemOutput extends PaginationOutput {
   reviews?: Review[];
-  avgRating?: number;
+  avg_rating?: number;
 }

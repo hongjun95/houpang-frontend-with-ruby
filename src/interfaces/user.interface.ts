@@ -37,10 +37,7 @@ export interface SignUpForm extends Pick<User, 'email' | 'name' | 'password' | '
 
 // sign in
 
-export interface SignInInput {
-  email: string;
-  password: string;
-}
+export interface SignInInput extends Pick<User, 'email' | 'password'> {}
 export interface SignInOutput {
   token: string;
   csrf: string;
@@ -57,8 +54,8 @@ export interface EditProfileForm extends Pick<User, 'email' | 'name' | 'phone' |
 // Change password
 
 export interface ChangePasswordInput {
-  currentPassword: string;
-  newPassword: string;
+  current_password: string;
+  new_password: string;
   password_confirmation: string;
 }
 export interface ChangePasswordOutput extends CoreOutput {}

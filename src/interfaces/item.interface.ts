@@ -24,15 +24,9 @@ export interface Item extends CoreEntity {
 }
 
 // Add item
-
+export interface AddItemObj extends Pick<Item, 'name' | 'sale_price' | 'stock' | 'product_images' | 'infos'> {}
 export interface AddItemInput {
-  item: {
-    name: string;
-    sale_price: number;
-    stock: number;
-    product_images: string[];
-    infos: Array<InfoItem>;
-  };
+  item: AddItemObj;
   category_name: string;
 }
 export interface AddItemOutput extends CoreOutput {
@@ -52,7 +46,7 @@ export interface AddItemInfoForm {
 // Find Item by Id
 
 export interface FindItemByIdInput {
-  itemId: string;
+  item_id: string;
 }
 export interface FindItemByIdOutput extends CoreOutput {
   item?: Item;
@@ -87,14 +81,9 @@ export interface GetItemsFromProviderOutput extends PaginationOutput {
 
 // Edit item
 
-export interface EditItemInput {
-  name: string;
-  price: number;
-  stock: number;
+export interface EditItemInput extends Pick<Item, 'name' | 'sale_price' | 'stock' | 'product_images' | 'infos'> {
   category_name: string;
-  images: string[];
-  infos: Array<InfoItem>;
-  itemId: string;
+  item_id: string;
 }
 export interface EditItemOutput extends CoreOutput {}
 export interface EditItemForm {
@@ -111,6 +100,6 @@ export interface EditItemInfoForm {
 // Delete item
 
 export interface DeleteItemInput {
-  itemId: string;
+  item_id: string;
 }
 export interface DeleteItemOutput extends CoreOutput {}

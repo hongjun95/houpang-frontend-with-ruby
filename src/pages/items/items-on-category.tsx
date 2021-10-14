@@ -52,7 +52,7 @@ const ItemsOnCategoryPage = ({ f7route, f7router }) => {
     ITEM_KEY, //
     ({ pageParam }) =>
       getItemsByCategoryId({
-        categoryId,
+        category_id: categoryId,
         sort: filterForm.values.sort,
         page: pageParam,
       }),
@@ -62,7 +62,7 @@ const ItemsOnCategoryPage = ({ f7route, f7router }) => {
         return hasNextPage ? lastPage.nextPage : false;
       },
       onSuccess: (data) => {
-        setCategoryName(data.pages[data.pages.length - 1].categoryName);
+        setCategoryName(data.pages[data.pages.length - 1].category_name);
       },
     },
   );

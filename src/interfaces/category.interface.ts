@@ -11,18 +11,16 @@ export interface GetAllCategoriesOutput extends CoreOutput {
   categories?: Category[];
 }
 
-export interface GetItemsOnCategoryInput extends PaginationInput {
-  slug?: string;
-}
+export interface GetItemsOnCategoryInput extends PaginationInput {}
 export interface GetItemsOnCategoryOutput extends PaginationOutput {
   items?: Item[];
 }
 
 export interface GetItemsByCategoryIdInput extends PaginationInput {
-  categoryId: string;
+  category_id: string;
   sort?: string;
 }
 export interface GetItemsByCategoryIdOutput extends PaginationOutput {
   items?: Item[];
-  categoryName: string;
+  category_name: string;
 }

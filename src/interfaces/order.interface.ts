@@ -53,10 +53,8 @@ export interface CreateOrderItemInput {
   item_id: number;
   count: number;
 }
-export interface CreateOrderInput {
+export interface CreateOrderInput extends Pick<Order, 'destination' | 'deliver_request'> {
   create_order_items: CreateOrderItemInput[];
-  destination: string;
-  deliver_request: string;
 }
 export interface CreateOrderOutput extends CoreOutput {
   order_id?: string;

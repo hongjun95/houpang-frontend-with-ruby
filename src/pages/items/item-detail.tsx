@@ -44,7 +44,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
 
   const { data: itemData, status: itemStatus } = useQuery<FindItemByIdOutput, Error>(
     itemKeys.detail(itemId),
-    () => findItemById({ itemId }),
+    () => findItemById({ item_id: itemId }),
     {
       enabled: !!itemId,
     },
@@ -186,7 +186,6 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
   //     },
   //   });
   // };
-
 
   return (
     <Page noToolbar className="min-h-screen">

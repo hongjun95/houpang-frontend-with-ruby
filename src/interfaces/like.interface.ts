@@ -12,11 +12,11 @@ export interface FindLikeListOutput extends CoreOutput {
 }
 
 export interface LikeItemInput {
-  itemId: string;
+  item_id: string;
 }
 export interface LikeItemOutput extends CoreOutput {}
 
 export interface UnlikeItemInput {
-  itemId: string;
+  item_id: string;
 }
 export interface UnlikeItemOutput extends CoreOutput {}
