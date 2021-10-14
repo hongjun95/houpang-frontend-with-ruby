@@ -125,7 +125,6 @@ export const changePasswordAPI = async (data: ChangePasswordInput) => {
 export const logoutAPI = () => API.delete('/logout');
 
 // category API
-// export const getCategories = (params = null) => API.get<Category[]>('/categories', { params });
 export const getCategories = async () => {
   let response: AxiosResponse<GetAllCategoriesOutput>;
   try {
@@ -136,7 +135,6 @@ export const getCategories = async () => {
   const result = response.data;
   return result;
 };
-// export const getCategory = (slug: string) => API.get<GetAllCategoriesOutput>(`/items/${slug}`);
 
 // Item APIs
 
@@ -147,7 +145,7 @@ export const getItemsByCategoryId = async ({
 }: GetItemsByCategoryIdInput): Promise<GetItemsByCategoryIdOutput> => {
   let response: AxiosResponse<GetItemsByCategoryIdOutput>;
   try {
-    response = await API.get<GetItemsByCategoryIdOutput>(`/categories/${categoryId}`, {
+    response = await API.get<GetItemsByCategoryIdOutput>(`/items/category/${categoryId}`, {
       params: {
         sort,
         page,

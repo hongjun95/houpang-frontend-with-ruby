@@ -50,29 +50,29 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
     },
   );
 
-  const {
-    hasNextPage,
-    isFetchingNextPage,
-    isFetching,
-    data: reviewData,
-    error,
-    status: reviewStatus,
-    fetchNextPage,
-    refetch,
-  } = useInfiniteQuery<GetReviewsOnItemOutput, Error>(
-    reviewKeys.list({ itemId, page: 1 }),
-    ({ pageParam }) =>
-      getReviewOnItemAPI({
-        itemId,
-        page: pageParam,
-      }),
-    {
-      getNextPageParam: (lastPage) => {
-        const hasNextPage = lastPage.hasNextPage;
-        return hasNextPage ? lastPage.nextPage : false;
-      },
-    },
-  );
+  // const {
+  //   hasNextPage,
+  //   isFetchingNextPage,
+  //   isFetching,
+  //   data: reviewData,
+  //   error,
+  //   status: reviewStatus,
+  //   fetchNextPage,
+  //   refetch,
+  // } = useInfiniteQuery<GetReviewsOnItemOutput, Error>(
+  //   reviewKeys.list({ itemId, page: 1 }),
+  //   ({ pageParam }) =>
+  //     getReviewOnItemAPI({
+  //       itemId,
+  //       page: pageParam,
+  //     }),
+  //   {
+  //     getNextPageParam: (lastPage) => {
+  //       const hasNextPage = lastPage.hasNextPage;
+  //       return hasNextPage ? lastPage.nextPage : false;
+  //     },
+  //   },
+  // );
 
   const onAddItemToShoppingList = () => {
     const shoppingList = getShoppingList(currentUser.id);
@@ -83,8 +83,8 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
       const shoppingItem: IShoppingItem = {
         id: itemId,
         name: itemData.item.name,
-        price: itemData.item.price,
-        imageUrl: itemData.item.images[0],
+        price: itemData.item.sale_price,
+        imageUrl: itemData.item.product_images[0],
         orderCount,
       };
       shoppingList.push({ ...shoppingItem });
@@ -156,36 +156,36 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
         orderList: [
           {
             id: itemData.item.id,
-            imageUrl: itemData.item.images[0],
+            imageUrl: itemData.item.product_images[0],
             name: itemData.item.name,
             orderCount,
-            price: itemData.item.price,
+            price: itemData.item.sale_price,
           },
         ],
-        totalPrice: itemData.item.price,
+        totalPrice: itemData.item.sale_price,
       },
     });
   };
 
-  const onClickLink = (e: any) => {
-    f7router.navigate(`/reviews/items/${itemId}`, {
-      props: {
-        pHasNextPage: hasNextPage,
-        pIsFetching: isFetching,
-        pIsFetchingNextPage: isFetchingNextPage,
-        fetchNextPage,
-        refetch,
-      },
-    });
-  };
+  // const onClickLink = (e: any) => {
+  //   f7router.navigate(`/reviews/items/${itemId}`, {
+  //     props: {
+  //       pHasNextPage: hasNextPage,
+  //       pIsFetching: isFetching,
+  //       pIsFetchingNextPage: isFetchingNextPage,
+  //       fetchNextPage,
+  //       refetch,
+  //     },
+  //   });
+  // };
 
-  const onClickWriteReviewLink = (e: any) => {
-    f7router.navigate(`/reviews/write/items/${itemId}`, {
-      props: {
-        refetch,
-      },
-    });
-  };
+  // const onClickWriteReviewLink = (e: any) => {
+  //   f7router.navigate(`/reviews/write/items/${itemId}`, {
+  //     props: {
+  //       refetch,
+  //     },
+  //   });
+  // };
 
   return (
     <Page noToolbar className="min-h-screen">
@@ -194,7 +194,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
       {itemStatus === 'success' ? (
         <>
           <Swiper pagination className="h-3/4">
-            {itemData?.item?.images.map((imageUrl) => (
+            {itemData?.item?.product_images.map((imageUrl) => (
               <SwiperSlide key={Date.now() + imageUrl}>
                 <img src={imageUrl} alt="" className="h-full w-full" />
               </SwiperSlide>
@@ -209,7 +209,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                   <div className="text-gray-400 text-sm">브랜드</div>
                 </div>
               </div>
-              {reviewStatus === 'error' ? (
+              {/* {reviewStatus === 'error' ? (
                 <span>Error : {error.message}</span>
               ) : (
                 reviewStatus === 'success' && (
@@ -228,13 +228,15 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                     <div className="text-blue-500 text-base mb-1">({reviewData.pages[0].totalResults})</div>
                   </button>
                 )
-              )}
+              )} */}
             </div>
             <div className="flex my-4">
               <h1 className="text-xl mr-1 truncate">{itemData.item.name}</h1>
             </div>
             <div className="flex">
-              <ItemPrice className="text-red-700 text-xl font-bold">{formmatPrice(itemData.item.price)}원</ItemPrice>
+              <ItemPrice className="text-red-700 text-xl font-bold">
+                {formmatPrice(itemData.item.sale_price)}원
+              </ItemPrice>
               {currentUser.id === itemData.item.provider.id && currentUser.role === UserRole.Provider && (
                 <>
                   <ItemEditLink
@@ -272,7 +274,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
             </table>
           </div>
           <div className="w-full h-3 bg-gray-300"></div>
-          <div className="pb-20">
+          {/* <div className="pb-20">
             <button
               onClick={onClickLink}
               className="flex justify-between items-center px-4 py-4 border-b border-gray-400 outline-none"
@@ -324,8 +326,8 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                     <div className="grid grid-cols-4 gap-1">
                       {reviewData.pages[0].reviews.map((review) => (
                         <img //
-                          key={review.id + review.images[0]}
-                          src={review.images[0]}
+                          key={review.id + review.product_images[0]}
+                          src={review.product_images[0]}
                           alt=""
                           className="object-cover object-center h-28 w-full"
                         />
@@ -362,7 +364,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                         </div>
                         <div className="flex">
                           <img //
-                            src={review.images[0]}
+                            src={review.product_images[0]}
                             alt=""
                             className="object-cover object-center h-24 w-24 mr-1"
                           />
@@ -379,7 +381,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                 </>
               )
             )}
-          </div>
+          </div> */}
           <div className="flex fixed bottom-0 border-t-2 botder-gray-600 w-full p-2 bg-white">
             {like || likeList.items.find((item) => item.id === itemId) ? (
               <i className="f7-icons cursor-pointer m-3 text-red-500" onClick={unlikeItem}>
@@ -412,7 +414,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                 <FontAwesomeIcon icon={faTimes} className="text-lg" />
               </Link>
             </div>
-            <div className="text-red-700 text-sm font-bold my-2">{formmatPrice(itemData.item.price)}원</div>
+            <div className="text-red-700 text-sm font-bold my-2">{formmatPrice(itemData.item.sale_price)}원</div>
             <Stepper
               value={orderCount}
               onStepperChange={setOrderCount}

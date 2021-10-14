@@ -51,7 +51,7 @@ const F7Views = () => {
         <Link tabLink="#view-mypage" icon="las la-user" text="마이페이지" />
       </Toolbar>
       <View id="view-home" stackPages main tab tabActive url="/" iosDynamicNavbar={false} />
-      <View id="view-items" stackPages name="items" tab url="/items?is_main=true/" />
+      <View id="view-items" stackPages name="items" tab url="#" />
       <View id="view-users" stackPages name="users" tab url="/users?is_main=true" />
       <View id="view-contacts" stackPages name="contacts" tab url="/contacts?is_main=true" />
       <View id="view-mypage" stackPages name="mypage" tab url="/mypage?is_main=true" />

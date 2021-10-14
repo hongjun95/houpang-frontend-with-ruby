@@ -16,7 +16,7 @@ export interface Item extends CoreEntity {
   sale_price: number;
   stock: number;
   avgRating?: number;
-  productImages: string[];
+  product_images: string[];
   category: Category;
   infos?: InfoItem[];
   orderItems: OrderItem[];

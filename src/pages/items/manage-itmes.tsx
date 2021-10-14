@@ -180,12 +180,12 @@ const ManageItemsPage = ({ f7route, f7router }) => {
                         <div
                           className="bg-gray-100 py-32 bg-center bg-cover"
                           style={{
-                            backgroundImage: `url(${item.images[0]})`,
+                            backgroundImage: `url(${item.product_images[0]})`,
                           }}
                         ></div>
                         <div className="m-1">
                           <div className="font-bold mt-1 mr-1 truncate">{item.name}</div>
-                          <div className="text-red-700 text-xl font-bold">{formmatPrice(item.price)}원</div>
+                          <div className="text-red-700 text-xl font-bold">{formmatPrice(item.sale_price)}원</div>
                           <div className="flex items-center">
                             <div className="mr-1">
                               <StaticRatingStar //
@@ -214,10 +214,10 @@ const ManageItemsPage = ({ f7route, f7router }) => {
                   {page.items.map((item: Item) => (
                     <div>
                       <a className="flex gap-1 m-1" onClick={(e) => onClickLink(e, item.id)} key={item.id}>
-                        <img src={item.images[0]} alt="" className="w-1/4 h-40 mr-4" />
+                        <img src={item.product_images[0]} alt="" className="w-1/4 h-40 mr-4" />
                         <div className="w-3/4">
                           <div className="text-xl font-bold mt-1 line-clamp-2">{item.name}</div>
-                          <div className="text-red-700 text-2xl mb-6 font-bold">{formmatPrice(item.price)}원</div>
+                          <div className="text-red-700 text-2xl mb-6 font-bold">{formmatPrice(item.sale_price)}원</div>
                           <div className="flex items-center">
                             <div className="mr-1">
                               <StaticRatingStar //

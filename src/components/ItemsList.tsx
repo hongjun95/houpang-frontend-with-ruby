@@ -84,7 +84,7 @@ const ItemsList = ({ status, error, data, f7router, ITEM_KEY, filterForm }: Item
                         <div
                           className="bg-gray-100 py-32 bg-center bg-cover"
                           style={{
-                            backgroundImage: `url(${item.productImages[0]})`,
+                            backgroundImage: `url(${item.product_images[0]})`,
                           }}
                         ></div>
                         <div className="m-1">
@@ -118,7 +118,7 @@ const ItemsList = ({ status, error, data, f7router, ITEM_KEY, filterForm }: Item
                   {page.items.map((item: Item) => (
                     <div>
                       <a className="flex gap-1 m-1" onClick={(e) => onClickLink(e, item.id)} key={item.id}>
-                        <img src={item.productImages[0]} alt="" className="w-1/4 h-40 mr-4" />
+                        <img src={item.product_images[0]} alt="" className="w-1/4 h-40 mr-4" />
                         <div className="w-3/4">
                           <div className="text-xl font-bold mt-1 line-clamp-2">{item.name}</div>
                           <div className="text-red-700 text-2xl mb-6 font-bold">{formmatPrice(item.sale_price)}원</div>

@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { Link, Navbar, NavRight, NavTitle, Page } from 'framework7-react';
 import { useInfiniteQuery, useQueryClient } from 'react-query';
+import { useRecoilValue } from 'recoil';
+import { useInView } from 'react-intersection-observer';
 
 import { getItemsByCategoryId } from '@api';
 import { SortState } from '@interfaces/item.interface';
 import { GetItemsByCategoryIdOutput } from '@interfaces/category.interface';
 import { itemKeys } from '@reactQuery/query-keys';
 import { IShoppingItem } from '@store';
-import { useInView } from 'react-intersection-observer';
-import { useRecoilValue } from 'recoil';
 import { shoppingListAtom } from '@atoms';
 import ItemsList from '@components/ItemsList';
 
