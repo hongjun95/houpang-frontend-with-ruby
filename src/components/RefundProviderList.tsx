@@ -30,7 +30,7 @@ const RefundProviderList: React.FC<RefundProviderListProps> = ({ currentUser }) 
     status,
   } = useInfiniteQuery<GetRefundsFromProviderOutput, Error>(
     refundsFromProvider.list({ providerId: currentUser.id, page: 1 }),
-    ({ pageParam }) => getRefundsFromProviderAPI({ providerId: currentUser.id, page: pageParam }),
+    ({ pageParam }) => getRefundsFromProviderAPI({ provider_id: currentUser.id, page: pageParam }),
     {
       getNextPageParam: (lastPage) => {
         const hasNextPage = lastPage.hasNextPage;
@@ -51,7 +51,7 @@ const RefundProviderList: React.FC<RefundProviderListProps> = ({ currentUser }) 
         <LandingPage />
       ) : status === 'error' ? (
         <span>Error : {error.message}</span>
-      ) : data?.pages[0].refundItems.length === 0 ? (
+      ) : data?.pages[0].refunds.length === 0 ? (
         <div className="flex items-center justify-center min-h-full">
           <span className="text-3xl font-bold text-gray-500">취소&#183;반품&#183;교환 목록이 비었습니다.</span>
         </div>
@@ -59,7 +59,7 @@ const RefundProviderList: React.FC<RefundProviderListProps> = ({ currentUser }) 
         <div>
           {data?.pages.map((page, index) => (
             <React.Fragment key={index}>
-              {page.refundItems.map((refundItem: Refund) => (
+              {page.refunds.map((refundItem: Refund) => (
                 <RefundItem key={refundItem.id} userId={currentUser.id} refundItem={refundItem} isProviderList={true} />
               ))}
             </React.Fragment>

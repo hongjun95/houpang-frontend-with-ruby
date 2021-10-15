@@ -36,42 +36,42 @@ const RefundItemComponent: React.FC<RefundItemProps> = ({ userId, refundItem, is
 
   return (
     <div className="border border-gray-400 mx-3 my-4">
-      <div className="mb-4 bg-gray-200 p-2">{refundItem.refundedAt}</div>
+      <div className="mb-4 bg-gray-200 p-2">{refundItem.refunded_at}</div>
       <div className="p-2">
         {isProviderList ? (
           <div className="mb-4">
-            <div className="font-bold truncate mr-3">상품명 : {refundItem.orderItem.item.name}</div>
+            <div className="font-bold truncate mr-3">상품명 : {refundItem.order_item.item.name}</div>
             <div className="mt-2">고객 이름 : {refundItem.refundee.name}</div>
             <div>고객 주소 : {refundItem.refundee.address1}</div>
             <div>고객 번호 : {refundItem.refundee.phone}</div>
           </div>
         ) : (
-          <div className="font-bold truncate mb-4">{refundItem.orderItem.item.name}</div>
+          <div className="font-bold truncate mb-4">{refundItem.order_item.item.name}</div>
         )}
 
         <div className="flex justify-between">
           <div>
             <span className="text-red-500 font-semibold mr-1">{refundItem.status}완료</span>
-            <span className="mr-1">{refundItem.refundedAt}</span>
+            <span className="mr-1">{refundItem.refunded_at}</span>
             <span>{refundItem.status} 접수</span>
           </div>
           {!isProviderList && (
             <button
               className={`w-1/3 py-2 px-3 rounded-md ml-2 ${
-                existedItemOnShoppingList(userId, refundItem.orderItem.item.id)
+                existedItemOnShoppingList(userId, refundItem.order_item.item.id)
                   ? 'border border-gray-600 text-gray-600 pointer-events-none'
                   : 'border-2 border-blue-600 text-blue-600'
               }`}
               onClick={(e) =>
                 onAddItemToShoppingList(e, {
-                  id: refundItem.orderItem.item.id,
-                  name: refundItem.orderItem.item.name,
-                  price: refundItem.orderItem.item.price,
+                  id: refundItem.order_item.item.id,
+                  name: refundItem.order_item.item.name,
+                  price: refundItem.order_item.item.sale_price,
                   orderCount: 1,
-                  imageUrl: refundItem.orderItem.item.images[0],
+                  imageUrl: refundItem.order_item.item.product_images[0],
                 })
               }
-              disabled={existedItemOnShoppingList(userId, refundItem.orderItem.item.id)}
+              disabled={existedItemOnShoppingList(userId, refundItem.order_item.item.id)}
             >
               장바구니 담기
             </button>
