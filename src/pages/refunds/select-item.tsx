@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { PageRouteProps } from '@constants';
 import { FormError } from '@components/form-error';
 import { OrderItem } from '@interfaces/order.interface';
+import { API_URL } from '@api';
 
 interface SelectItemPageProps extends PageRouteProps {
   orderItem: OrderItem;
@@ -105,7 +106,7 @@ const SelectProdcutPage = ({ f7route, f7router, orderItem }: SelectItemPageProps
             <h2 className="text-2xl font-bold mb-4">상품을 선택해 주세요.</h2>
             <div className="pb-2 border-b bg-white rounded-lg p-4">
               <div className="flex">
-                <img src={orderItem.item.product_images[0]} alt="" className="w-24 h-24 mr-4" />
+                <img src={API_URL + orderItem.item.images[0].image_path} alt="" className="w-24 h-24 mr-4" />
                 <div className="font-bold mb-4 h-24 ">
                   {orderItem.item.name.length > 140 ? `${orderItem.item.name.slice(0, 140)}...` : orderItem.item.name}
                 </div>

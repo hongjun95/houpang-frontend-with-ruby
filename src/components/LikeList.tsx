@@ -6,7 +6,7 @@ import { formmatPrice } from '@utils/index';
 import { existedItemOnShoppingList, getShoppingList, IShoppingItem, saveShoppingList } from '@store';
 import { Like } from '@interfaces/like.interface';
 import { likeListAtom } from '@atoms';
-import { unlikeItemAPI } from '@api';
+import { API_URL, unlikeItemAPI } from '@api';
 import { User } from '@interfaces/user.interface';
 
 interface LikeListProps {
@@ -23,7 +23,7 @@ const LikeList: React.FC<LikeListProps> = ({ currentUser, setShoppingList }) => 
       items: [...prev.items.filter((item) => item.id !== itemId)],
     }));
     try {
-      const { ok, error } = await unlikeItemAPI({ itemId });
+      const { ok, error } = await unlikeItemAPI({ item_id: itemId });
       if (!ok) {
         f7.dialog.alert(error);
       }
@@ -57,7 +57,7 @@ const LikeList: React.FC<LikeListProps> = ({ currentUser, setShoppingList }) => 
         likeList.items.map((item) => (
           <div className="pb-2 border-b border-gray-400 mx-2 my-4" key={item.id}>
             <div className="flex min-w-full">
-              <img src={item.product_images[0]} alt="" className="w-1/4 mr-4" />
+              <img src={API_URL + item.images[0].image_path} alt="" className="w-1/4 mr-4" />
               <div className="w-80 flex flex-col justify-between">
                 <div className="flex mb-4">
                   <span className="font-bold truncate w-full">{item.name}</span>
@@ -85,7 +85,7 @@ const LikeList: React.FC<LikeListProps> = ({ currentUser, setShoppingList }) => 
                         name: item.name,
                         price: item.sale_price,
                         orderCount: 1,
-                        imageUrl: item.product_images[0],
+                        imageUrl: API_URL + item.images[0].image_path,
                       })
                     }
                     disabled={existedItemOnShoppingList(currentUser.id, item.id)}

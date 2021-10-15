@@ -223,7 +223,6 @@ export const addItemAPI = async (data: AddItemInput): Promise<AddItemOutput> => 
 export const editItem = async ({
   item_id,
   category_name,
-  product_images,
   infos,
   name,
   sale_price,
@@ -231,7 +230,6 @@ export const editItem = async ({
 }: EditItemInput): Promise<EditItemOutput> => {
   const data = {
     category_name,
-    product_images,
     infos,
     name,
     sale_price,
@@ -264,6 +262,17 @@ export const uploadImages = async (data) => {
   let response;
   try {
     response = await API.post('/images/dropzone', data);
+  } catch (error) {
+    console.error(error);
+  }
+  const result = response.data;
+  return result;
+};
+
+export const uploadMultipleImages = async (data) => {
+  let response;
+  try {
+    response = await API.post('/images/uploads_multiple', data);
   } catch (error) {
     console.error(error);
   }

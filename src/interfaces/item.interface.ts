@@ -1,5 +1,6 @@
 import { Category } from './category.interface';
 import { CoreEntity, CoreOutput, PaginationInput, PaginationOutput } from './core.interface';
+import { ImageOutput } from './image.interface';
 import { OrderItem, OrderStatus } from './order.interface';
 import { Review } from './review.interface';
 import { User } from './user.interface';
@@ -16,15 +17,15 @@ export interface Item extends CoreEntity {
   sale_price: number;
   stock: number;
   avgRating?: number;
-  product_images: string[];
   category: Category;
   infos?: InfoItem[];
   orderItems: OrderItem[];
   reviews: Review[];
+  images: ImageOutput[];
 }
 
 // Add item
-export interface AddItemObj extends Pick<Item, 'name' | 'sale_price' | 'stock' | 'product_images' | 'infos'> {}
+export interface AddItemObj extends Pick<Item, 'name' | 'sale_price' | 'stock' | 'infos'> {}
 export interface AddItemInput {
   item: AddItemObj;
   category_name: string;
@@ -81,7 +82,7 @@ export interface GetItemsFromProviderOutput extends PaginationOutput {
 
 // Edit item
 
-export interface EditItemInput extends Pick<Item, 'name' | 'sale_price' | 'stock' | 'product_images' | 'infos'> {
+export interface EditItemInput extends Pick<Item, 'name' | 'sale_price' | 'stock' | 'infos'> {
   category_name: string;
   item_id: string;
 }

@@ -12,7 +12,7 @@ import { Like } from '@interfaces/like.interface';
 import { UserRole } from '@interfaces/user.interface';
 import { GetReviewsOnItemOutput } from '@interfaces/review.interface';
 import { itemKeys, reviewKeys } from '@reactQuery/query-keys';
-import { deleteItem, findItemById, getReviewOnItemAPI, likeItemAPI, unlikeItemAPI } from '@api';
+import { API_URL, deleteItem, findItemById, getReviewOnItemAPI, likeItemAPI, unlikeItemAPI } from '@api';
 import { formmatPrice } from '@utils/index';
 import { saveShoppingList, existedItemOnShoppingList, getShoppingList, IShoppingItem } from '@store';
 import { likeListAtom, shoppingListAtom } from '@atoms';
@@ -84,7 +84,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
         id: itemId,
         name: itemData.item.name,
         price: itemData.item.sale_price,
-        imageUrl: itemData.item.product_images[0],
+        imageUrl: API_URL + itemData.item.images[0].image_path,
         orderCount,
       };
       shoppingList.push({ ...shoppingItem });
@@ -104,7 +104,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
       items: [...prev.items, { ...itemData.item }],
     }));
     try {
-      const { ok, error } = await likeItemAPI({ itemId });
+      const { ok, error } = await likeItemAPI({ item_id: itemId });
 
       if (ok) {
         f7.dialog.alert('찜 했습니다.');
@@ -125,7 +125,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
       items: [...prev.items.filter((item) => item.id !== itemId)],
     }));
     try {
-      const { ok, error } = await unlikeItemAPI({ itemId });
+      const { ok, error } = await unlikeItemAPI({ item_id: itemId });
 
       if (ok) {
         f7.dialog.alert('취소 했습니다.');
@@ -142,7 +142,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
   const onDeleteBtn = async () => {
     try {
       await f7.dialog.confirm('정말로 삭제하시겠습니까?', async () => {
-        await deleteItem({ itemId });
+        await deleteItem({ item_id: itemId });
         f7router.navigate(`/items?categoryId=${itemData.item.category.id}`);
       });
     } catch (error) {
@@ -156,7 +156,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
         orderList: [
           {
             id: itemData.item.id,
-            imageUrl: itemData.item.product_images[0],
+            imageUrl: API_URL + itemData.item.images[0].image_path,
             name: itemData.item.name,
             orderCount,
             price: itemData.item.sale_price,
@@ -194,9 +194,9 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
       {itemStatus === 'success' ? (
         <>
           <Swiper pagination className="h-3/4">
-            {itemData?.item?.product_images.map((imageUrl) => (
-              <SwiperSlide key={Date.now() + imageUrl}>
-                <img src={imageUrl} alt="" className="h-full w-full" />
+            {itemData?.item?.images.map((image) => (
+              <SwiperSlide key={Date.now() + image.id}>
+                <img src={API_URL + image.image_path} alt="" className="h-full w-full" />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -326,8 +326,8 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                     <div className="grid grid-cols-4 gap-1">
                       {reviewData.pages[0].reviews.map((review) => (
                         <img //
-                          key={review.id + review.product_images[0]}
-                          src={review.product_images[0]}
+                          key={review.id API_URL++ review.images[0].image_path}
+                          srcAPI_URL+={review.images[0].image_path}
                           alt=""
                           className="object-cover object-center h-28 w-full"
                         />
@@ -364,7 +364,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                         </div>
                         <div className="flex">
                           <img //
-                            src={review.product_images[0]}
+                            srcAPI_URL+={review.images[0].image_path}
                             alt=""
                             className="object-cover object-center h-24 w-24 mr-1"
                           />

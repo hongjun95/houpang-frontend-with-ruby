@@ -6,6 +6,7 @@ import { existedItemOnShoppingList, getShoppingList, IShoppingItem, saveShopping
 import { shoppingListAtom } from '@atoms';
 import { Refund } from '@interfaces/refund.interface';
 import { formmatDay } from '@utils/formmatDay';
+import { API_URL } from '@api';
 
 interface RefundItemProps {
   userId: string;
@@ -69,7 +70,7 @@ const RefundItemComponent: React.FC<RefundItemProps> = ({ userId, refundItem, is
                   name: refundItem.order_item.item.name,
                   price: refundItem.order_item.item.sale_price,
                   orderCount: 1,
-                  imageUrl: refundItem.order_item.item.product_images[0],
+                  imageUrl: API_URL + refundItem.order_item.item.images[0].image_path,
                 })
               }
               disabled={existedItemOnShoppingList(userId, refundItem.order_item.item.id)}

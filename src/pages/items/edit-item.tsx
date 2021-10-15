@@ -69,7 +69,7 @@ const EditItemInfoPage = ({ f7router, f7route }) => {
         props: {
           itemId,
           itemInfos: itemData.item.infos || [],
-          currentImageUrls: itemData.item.product_images,
+          currentImageUrls: itemData.item.images,
         },
       });
     } catch (e) {

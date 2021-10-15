@@ -8,7 +8,7 @@ import { formmatPrice } from '@utils/index';
 import { OrderItem } from '@interfaces/order.interface';
 import useAuth from '@hooks/useAuth';
 import { RefundStatus } from '@interfaces/refund.interface';
-import { requestRefundAPI } from '@api';
+import { API_URL, requestRefundAPI } from '@api';
 
 interface SelectSolutionPageProps extends PageRouteProps {
   orderItem: OrderItem;
@@ -153,7 +153,7 @@ const SelectSolutionPage = ({
           <Form className="px-3 py-4 bg-gray-200 min-h-screen">
             <div className="pb-2 border-b bg-white rounded-lg p-4">
               <div className="flex mb-4 pb-4 border-b border-gray-400">
-                <img src={orderItem.item.product_images[0]} alt="" className="w-24 h-24 mr-4" />
+                <img src={API_URL + orderItem.item.images[0].image_path} alt="" className="w-24 h-24 mr-4" />
                 <div className="flex flex-col justify-between">
                   <div className="font-bold mb-2">
                     {orderItem.item.name.length > 140 ? `${orderItem.item.name.slice(0, 140)}...` : orderItem.item.name}

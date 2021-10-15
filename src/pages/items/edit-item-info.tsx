@@ -8,13 +8,7 @@ import { f7, List, ListInput, Navbar, Page } from 'framework7-react';
 import { EditItemInfoProps } from '@constants';
 import { editItem, uploadImages } from '@api';
 import { useRecoilValue } from 'recoil';
-import {
-  itemCategoryNameAtom,
-  itemImgFilesAtom,
-  itemNameAtom,
-  itemPriceAtom,
-  itemStockAtom,
-} from '@atoms';
+import { itemCategoryNameAtom, itemImgFilesAtom, itemNameAtom, itemPriceAtom, itemStockAtom } from '@atoms';
 import { InfoItem } from '@interfaces/item.interface';
 import { mapValues } from 'lodash';
 
@@ -67,33 +61,32 @@ const EditItemInfoPage = ({ f7router, itemId, itemInfos, currentImageUrls }: Edi
         value: rest[`${info.id}-infoValue`] as string,
       }));
 
-      let images: string[];
-      if (itemImgFiles.length !== 0) {
-        const formBody = new FormData();
+      // let images: string[];
+      // if (itemImgFiles.length !== 0) {
+      //   const formBody = new FormData();
 
-        for (const image of itemImgFiles) {
-          formBody.append('files', image);
-        }
-        const {
-          status,
-          data: { urls },
-        } = await uploadImages(formBody);
-        if (status === 200) {
-          images = urls;
-        }
-      } else {
-        images = currentImageUrls;
-      }
+      //   for (const image of itemImgFiles) {
+      //     formBody.append('files', image);
+      //   }
+      //   const {
+      //     status,
+      //     data: { urls },
+      //   } = await uploadImages(formBody);
+      //   if (status === 200) {
+      //     images = urls;
+      //   }
+      // } else {
+      //   images = currentImageUrls;
+      // }
 
       try {
         const { ok, error } = await editItem({
           name: itemName,
-          price: itemPrice,
-          categoryName: itemCategoryName,
+          sale_price: itemPrice,
+          category_name: itemCategoryName,
           stock: itemStock,
-          images,
           infos: submittedInfoObjects,
-          itemId,
+          item_id: itemId,
         });
 
         if (ok) {

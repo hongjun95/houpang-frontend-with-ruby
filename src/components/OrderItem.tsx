@@ -16,7 +16,7 @@ import {
 } from '@interfaces/order.interface';
 import useAuth from '@hooks/useAuth';
 import { UserRole } from '@interfaces/user.interface';
-import { updateOrderStatusAPI } from '@api';
+import { API_URL, updateOrderStatusAPI } from '@api';
 
 interface OrderItemProps {
   userId: string;
@@ -116,7 +116,7 @@ const OrderItemComponent: React.FC<OrderItemProps> = ({
       </div>
       <div className="flex">
         <a href={`/items/${orderItem.item.id}`}>
-          <img src={orderItem.item.product_images[0]} alt="" className="w-24 h-24 mr-4" />
+          <img src={API_URL + orderItem.item.images[0].image_path} alt="" className="w-24 h-24 mr-4" />
         </a>
         <div className="overflow-hidden w-3/4 flex flex-col justify-between h-full">
           <a href={`/items/${orderItem.item.id}`}>
@@ -144,7 +144,7 @@ const OrderItemComponent: React.FC<OrderItemProps> = ({
                     name: orderItem.item.name,
                     price: orderItem.item.sale_price,
                     orderCount: 1,
-                    imageUrl: orderItem.item.product_images[0],
+                    imageUrl: API_URL + orderItem.item.images[0].image_path,
                   })
                 }
                 disabled={existedItemOnShoppingList(userId, orderItem.item.id)}

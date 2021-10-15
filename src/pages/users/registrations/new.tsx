@@ -7,7 +7,7 @@ import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
 import i18next from 'i18next';
 import { SignUpForm } from '@interfaces/user.interface';
-import { signupAPI, uploadImages } from '@api';
+import { API_URL, signupAPI, uploadImages } from '@api';
 import useAuth from '@hooks/useAuth';
 import PreviewImg from '@components/PreviewImg';
 
@@ -68,7 +68,7 @@ const SignUpPage = () => {
       } = await uploadImages(formBody);
 
       try {
-        const user = await signupAPI({ ...values, user_img: url });
+        const user = await signupAPI({ ...values, user_img: API_URL + url });
         f7.dialog.close();
         authenticateUser(user);
       } catch (error) {

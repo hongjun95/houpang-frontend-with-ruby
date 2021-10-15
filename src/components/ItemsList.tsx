@@ -11,6 +11,7 @@ import StaticRatingStar from './StaticRatingStar';
 import { GetItemsByCategoryIdOutput } from '@interfaces/category.interface';
 import { currency } from '@js/utils';
 import i18n from '../assets/lang/i18n';
+import { API_URL } from '@api';
 
 interface ItemListProps {
   status: 'idle' | 'error' | 'loading' | 'success';
@@ -84,7 +85,7 @@ const ItemsList = ({ status, error, data, f7router, ITEM_KEY, filterForm }: Item
                         <div
                           className="bg-gray-100 py-32 bg-center bg-cover"
                           style={{
-                            backgroundImage: `url(${item.product_images[0]})`,
+                            backgroundImage: `url(${API_URL + item.images[0].image_path})`,
                           }}
                         ></div>
                         <div className="m-1">
@@ -118,7 +119,7 @@ const ItemsList = ({ status, error, data, f7router, ITEM_KEY, filterForm }: Item
                   {page.items.map((item: Item) => (
                     <div>
                       <a className="flex gap-1 m-1" onClick={(e) => onClickLink(e, item.id)} key={item.id}>
-                        <img src={item.product_images[0]} alt="" className="w-1/4 h-40 mr-4" />
+                        <img src={API_URL + item.images[0].image_path} alt="" className="w-1/4 h-40 mr-4" />
                         <div className="w-3/4">
                           <div className="text-xl font-bold mt-1 line-clamp-2">{item.name}</div>
                           <div className="text-red-700 text-2xl mb-6 font-bold">{formmatPrice(item.sale_price)}원</div>
