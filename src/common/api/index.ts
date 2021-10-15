@@ -263,7 +263,7 @@ export const deleteItem = async ({ item_id }: DeleteItemInput): Promise<DeleteIt
 export const uploadImages = async (data) => {
   let response;
   try {
-    response = await API.post('/uploads', data);
+    response = await API.post('/images/dropzone', data);
   } catch (error) {
     console.error(error);
   }

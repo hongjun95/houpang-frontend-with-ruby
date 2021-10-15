@@ -16,6 +16,7 @@ export interface User extends CoreEntity {
   role: UserRole;
   phone: string;
   address1: string;
+  user_img: string;
   items: Item[];
   orders: Order[];
   reviews: Review[];
@@ -23,7 +24,7 @@ export interface User extends CoreEntity {
 
 // sign up
 
-export interface SignUpInput extends Pick<User, 'email' | 'name' | 'password' | 'phone' | 'address1'> {
+export interface SignUpInput extends Pick<User, 'email' | 'name' | 'password' | 'phone' | 'address1' | 'user_img'> {
   password_confirmation: string;
 }
 export interface SignUpOutput {
@@ -45,7 +46,7 @@ export interface SignInOutput {
 
 // edit profile
 
-export interface EditProfileInput extends Pick<User, 'email' | 'name' | 'phone' | 'address1'> {}
+export interface EditProfileInput extends Pick<User, 'email' | 'name' | 'phone' | 'address1' | 'user_img'> {}
 export interface EditProfileOutput extends CoreOutput {}
 export interface EditProfileForm extends Pick<User, 'email' | 'name' | 'phone' | 'address1'> {
   images?: Array<File>;

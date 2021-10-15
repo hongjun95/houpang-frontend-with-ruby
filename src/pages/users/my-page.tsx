@@ -4,7 +4,7 @@ import { Navbar, NavTitle, Page } from 'framework7-react';
 import useAuth from '@hooks/useAuth';
 import { UserRole } from '@interfaces/user.interface';
 import { PageRouteProps } from '@constants';
-import { logoutAPI } from '@api';
+import { API_URL, logoutAPI } from '@api';
 
 const MyPage = ({ f7router }: PageRouteProps) => {
   const { currentUser, isAuthenticated, unAuthenticateUser } = useAuth();
@@ -32,7 +32,7 @@ const MyPage = ({ f7router }: PageRouteProps) => {
               <a href="/users/edit-profile">
                 <div className="relative">
                   {currentUser?.name ? (
-                    <img className="h-24 w-24 rounded-full" src={currentUser?.name} alt="프로필 이미지" />
+                    <img className="h-24 w-24 rounded-full" src={currentUser.user_img} alt="프로필 이미지" />
                   ) : (
                     <i
                       className="h-24 w-24 rounded-full las la-user-circle"

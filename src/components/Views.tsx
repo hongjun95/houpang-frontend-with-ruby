@@ -22,7 +22,7 @@ const F7Views = () => {
     try {
       await logoutAPI();
     } catch (e) {
-      console.log(e);
+      console.error(e);
     } finally {
       unAuthenticateUser();
     }

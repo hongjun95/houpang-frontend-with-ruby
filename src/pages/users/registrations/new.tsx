@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { f7, List, ListInput, Navbar, Page } from 'framework7-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
 import i18next from 'i18next';
 import { SignUpForm } from '@interfaces/user.interface';
-import { signupAPI } from '@api';
+import { signupAPI, uploadImages } from '@api';
 import useAuth from '@hooks/useAuth';
+import PreviewImg from '@components/PreviewImg';
 
 const SignUpPage = () => {
   const { authenticateUser } = useAuth();
+  const [previewImgUri, setPreviewImgUri] = useState<string | ArrayBuffer>();
 
   const SignUpSchema: Yup.SchemaOf<SignUpForm> = Yup.object().shape({
     name: Yup.string() //
@@ -51,8 +55,20 @@ const SignUpPage = () => {
     setSubmitting(false);
     f7.dialog.preloader('잠시만 기다려주세요...');
     try {
+      const { images } = values;
+
+      const formBody = new FormData();
+
+      for (const image of images) {
+        formBody.append('files', image);
+      }
+
+      const {
+        data: { image: url },
+      } = await uploadImages(formBody);
+
       try {
-        const user = await signupAPI({ ...values });
+        const user = await signupAPI({ ...values, user_img: url });
         f7.dialog.close();
         authenticateUser(user);
       } catch (error) {
@@ -61,6 +77,19 @@ const SignUpPage = () => {
       }
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const handlePreviewImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const files = e.target.files;
+
+    if (files) {
+      let reader = new FileReader();
+      reader.onload = (ev) => {
+        setPreviewImgUri(ev.target.result);
+      };
+      reader.readAsDataURL(files[0]);
     }
   };
 
@@ -74,7 +103,7 @@ const SignUpPage = () => {
         onSubmit={(values, { setSubmitting }: FormikHelpers<SignUpForm>) => handleSignUp(values, setSubmitting)}
         validateOnMount
       >
-        {({ handleChange, handleBlur, values, errors, touched, isSubmitting, isValid }) => (
+        {({ handleChange, handleBlur, setFieldValue, values, errors, touched, isSubmitting, isValid }) => (
           <Form>
             <List noHairlinesMd>
               <div className="p-3 font-semibold bg-white">기본 정보</div>
@@ -153,6 +182,38 @@ const SignUpPage = () => {
                 errorMessageForce
                 errorMessage={touched.address1 && errors.address1}
               />
+
+              <div className="flex relative mx-2 py-2">
+                <div className="flex justify-center border border-gray-300 mr-3 p-2 w-1/4">
+                  <label //
+                    htmlFor="upload-images"
+                    className="text-blue-500 cursor-pointer flex items-center px-2"
+                  >
+                    <FontAwesomeIcon icon={faCamera} className="h-full mr-1" />
+                    <span className="ml-2 text-justify mr w-2/3">프로필 이미지</span>
+                  </label>
+                  <input //
+                    type="file"
+                    name="images"
+                    id="upload-images"
+                    className="opacity-0 absolute z-0"
+                    accept="image/*"
+                    multiple
+                    onChange={(event) => {
+                      const images = event.target.files;
+                      const myFiles = Array.from(images);
+                      handlePreviewImage(event);
+                      setFieldValue('images', myFiles);
+                    }}
+                  />
+                </div>
+                {previewImgUri && (
+                  <PreviewImg //
+                    previewImgUri={previewImgUri}
+                    className="object-cover object-center h-20 w-24"
+                  />
+                )}
+              </div>
             </List>
 
             <div className="p-4">
