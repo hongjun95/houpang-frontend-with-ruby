@@ -25,20 +25,22 @@ export interface Refund extends CoreEntity {
 }
 
 export interface RequestRefundInput
-  extends Pick<
-    Refund,
-    | 'count'
-    | 'problem_title'
-    | 'problem_description'
-    | 'status'
-    | 'refundee'
-    | 'recall_place'
-    | 'recall_day'
-    | 'recall_title'
-    | 'recall_description'
-    | 'send_place'
-    | 'send_day'
-    | 'refund_pay'
+  extends Partial<
+    Pick<
+      Refund,
+      | 'count'
+      | 'problem_title'
+      | 'problem_description'
+      | 'status'
+      | 'refundee'
+      | 'recall_place'
+      | 'recall_day'
+      | 'recall_title'
+      | 'recall_description'
+      | 'send_place'
+      | 'send_day'
+      | 'refund_pay'
+    >
   > {
   order_item_id: string;
 }
