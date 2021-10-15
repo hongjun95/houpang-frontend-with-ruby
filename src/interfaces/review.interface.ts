@@ -4,7 +4,6 @@ import { User } from './user.interface';
 
 export interface Review extends CoreEntity {
   commenter: User;
-  reviewed_at: string;
   item: Item;
   content: string;
   rating: number;

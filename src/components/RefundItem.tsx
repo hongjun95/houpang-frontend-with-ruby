@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 import { existedItemOnShoppingList, getShoppingList, IShoppingItem, saveShoppingList } from '@store';
 import { shoppingListAtom } from '@atoms';
 import { Refund } from '@interfaces/refund.interface';
+import { formmatDay } from '@utils/formmatDay';
 
 interface RefundItemProps {
   userId: string;
@@ -36,7 +37,7 @@ const RefundItemComponent: React.FC<RefundItemProps> = ({ userId, refundItem, is
 
   return (
     <div className="border border-gray-400 mx-3 my-4">
-      <div className="mb-4 bg-gray-200 p-2">{refundItem.refunded_at}</div>
+      <div className="mb-4 bg-gray-200 p-2">{formmatDay(refundItem.created_at)}</div>
       <div className="p-2">
         {isProviderList ? (
           <div className="mb-4">
@@ -52,7 +53,7 @@ const RefundItemComponent: React.FC<RefundItemProps> = ({ userId, refundItem, is
         <div className="flex justify-between">
           <div>
             <span className="text-red-500 font-semibold mr-1">{refundItem.status}완료</span>
-            <span className="mr-1">{refundItem.refunded_at}</span>
+            <span className="mr-1">{formmatDay(refundItem.created_at)}</span>
             <span>{refundItem.status} 접수</span>
           </div>
           {!isProviderList && (

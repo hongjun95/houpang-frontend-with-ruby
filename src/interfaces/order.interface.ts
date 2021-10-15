@@ -16,7 +16,7 @@ export interface Order extends CoreEntity {
   total: number;
   destination: string;
   deliver_request: string;
-  ordered_at: string;
+  created_at: string;
 }
 
 export interface OrderItem extends CoreEntity {

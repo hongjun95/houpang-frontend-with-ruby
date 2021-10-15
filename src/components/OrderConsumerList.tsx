@@ -11,6 +11,7 @@ import { getOrdersFromConsumerAPI } from '@api';
 import { ordersFromConsumer } from '@reactQuery/query-keys';
 import { CancelOrderItemInput, CancelOrderItemOutput, GetOrdersFromConsumerOutput } from '@interfaces/order.interface';
 import { User } from '@interfaces/user.interface';
+import { formmatDay } from '@utils/formmatDay';
 
 interface OrderConsumerListProps {
   currentUser: User;
@@ -81,7 +82,7 @@ const OrderConsumerList: React.FC<OrderConsumerListProps> = ({ currentUser, canc
               {page?.orders.map((order) => (
                 <Order
                   key={order.id}
-                  created_at={order.ordered_at}
+                  created_at={formmatDay(order.created_at)}
                   destination={order.destination}
                   deliverRequest={order.deliver_request}
                 >

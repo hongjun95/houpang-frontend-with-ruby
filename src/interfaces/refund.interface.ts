@@ -8,7 +8,7 @@ export enum RefundStatus {
 }
 
 export interface Refund extends CoreEntity {
-  refunded_at: string;
+  created_at: string;
   order_item: OrderItem;
   count: number;
   problem_title: string;
