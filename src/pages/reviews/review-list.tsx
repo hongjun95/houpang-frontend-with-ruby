@@ -16,6 +16,7 @@ import { itemKeys, reviewKeys } from '@reactQuery/query-keys';
 import { GetReviewsOnItemOutput } from '@interfaces/review.interface';
 import StaticRatingStar from '@components/StaticRatingStar';
 import { formmatDay } from '@utils/formmatDay';
+import { API_URL } from '@api';
 
 interface ReviewListPageProps extends PageRouteProps {
   pHasNextPage: boolean;
@@ -68,6 +69,8 @@ const ReviewListPage = ({
     });
   };
 
+  console.log(reviewData);
+
   return (
     <Page noToolbar className="min-h-screen">
       <Navbar title="상품리뷰" backLink={true}></Navbar>
@@ -97,7 +100,7 @@ const ReviewListPage = ({
             <ul className="grid grid-cols-4 gap-1">
               {reviewData.pages[0].reviews.map((review) => (
                 <img //
-                  src={review.images.length !== 0 ? review.images[0].image_path : '#'}
+                  src={review.images.length !== 0 ? API_URL + review.images[0].image_path : '#'}
                   alt=""
                   className="object-cover object-center h-28 w-full"
                 />
@@ -144,7 +147,7 @@ const ReviewListPage = ({
                         {review.images.length !== 0 &&
                           review.images.map((image) => (
                             <img //
-                              src={image.image_path}
+                              src={API_URL + image.image_path}
                               alt=""
                               className="object-cover object-center h-20 w-20 mr-1"
                             />
