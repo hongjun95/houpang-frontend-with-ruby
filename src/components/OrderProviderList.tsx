@@ -37,8 +37,8 @@ const OrderProviderList: React.FC<OrderProviderListProps> = ({ currentUser, canc
       }),
     {
       getNextPageParam: (lastPage) => {
-        const hasNextPage = lastPage.hasNextPage;
-        return hasNextPage ? lastPage.nextPage : false;
+        const hasNextPage = lastPage.has_next_page;
+        return hasNextPage ? lastPage.next_page : false;
       },
     },
   );
@@ -66,7 +66,7 @@ const OrderProviderList: React.FC<OrderProviderListProps> = ({ currentUser, canc
         <div>Error:{error.message}</div>
       ) : status === 'loading' ? (
         <LandingPage />
-      ) : status === 'success' && data?.pages[0].totalResults === 0 ? (
+      ) : status === 'success' && data?.pages[0].total_results === 0 ? (
         <div className="flex items-center justify-center min-h-full">
           <span className="text-3xl font-bold text-gray-500">주문 목록이 비었습니다.</span>
         </div>

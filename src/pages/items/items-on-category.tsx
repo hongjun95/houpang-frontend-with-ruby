@@ -58,8 +58,8 @@ const ItemsOnCategoryPage = ({ f7route, f7router }) => {
       }),
     {
       getNextPageParam: (lastPage) => {
-        const hasNextPage = lastPage.hasNextPage;
-        return hasNextPage ? lastPage.nextPage : false;
+        const hasNextPage = lastPage.has_next_page;
+        return hasNextPage ? lastPage.next_page : false;
       },
       onSuccess: (data) => {
         setCategoryName(data.pages[data.pages.length - 1].category_name);

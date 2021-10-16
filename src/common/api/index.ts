@@ -471,7 +471,7 @@ export const createReviewAPI = async ({ item_id, content, rating }: CreateReview
     rating,
   };
   try {
-    response = await API.post<CreateReviewOutput>(`/reviews?item_id=${item_id}`, data);
+    response = await API.post<CreateReviewOutput>(`/reviews?item_id=${item_id}`, { review: data });
   } catch (error) {
     console.error(error);
   }

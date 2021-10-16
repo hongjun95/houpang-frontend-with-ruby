@@ -57,12 +57,12 @@ const HomePage = ({ f7router }) => {
     ({ pageParam }) => getItemsBySearchTermAPI({ sort: filterForm.values.sort, page: pageParam, query }),
     {
       getNextPageParam: (lastPage) => {
-        const hasNextPage = lastPage.hasNextPage;
-        return hasNextPage ? lastPage.nextPage : false;
+        const hasNextPage = lastPage.has_next_page;
+        return hasNextPage ? lastPage.next_page : false;
       },
       onSuccess: (data) => {
         if (hasNextPage) {
-          setPage(data.pages[0].nextPage);
+          setPage(data.pages[0].next_page);
         }
       },
       enabled: !!query,

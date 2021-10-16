@@ -69,8 +69,8 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
       }),
     {
       getNextPageParam: (lastPage) => {
-        const hasNextPage = lastPage.hasNextPage;
-        return hasNextPage ? lastPage.nextPage : false;
+        const hasNextPage = lastPage.has_next_page;
+        return hasNextPage ? lastPage.next_page : false;
       },
     },
   );
@@ -226,7 +226,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                         className="text-xl"
                       />
                     </div>
-                    <div className="text-blue-500 text-base mb-1">({reviewData.pages[0].totalResults})</div>
+                    <div className="text-blue-500 text-base mb-1">({reviewData.pages[0].total_results})</div>
                   </button>
                 )
               )}
@@ -305,7 +305,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                             className="text-2xl"
                           />
                         </div>
-                        <div className="text-lg">{reviewData.pages[0].totalResults}</div>
+                        <div className="text-lg">{reviewData.pages[0].total_results}</div>
                       </div>
                     )
                   )}

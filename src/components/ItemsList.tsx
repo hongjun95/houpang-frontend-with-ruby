@@ -38,7 +38,7 @@ const ItemsList = ({ status, error, data, f7router, ITEM_KEY, filterForm }: Item
     <>
       <form onSubmit={filterForm.handleSubmit} className="item-list-form p-3 table w-full border-b">
         <div className="float-left">
-          총 <b>{currency(data?.pages[0].totalResults || 0)}</b>개 상품
+          총 <b>{currency(data?.pages[0].total_results || 0)}</b>개 상품
         </div>
         <ListInput
           type="select"

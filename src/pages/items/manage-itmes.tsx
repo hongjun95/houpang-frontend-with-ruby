@@ -67,11 +67,11 @@ const ManageItemsPage = ({ f7route, f7router }) => {
       }),
     {
       getNextPageParam: (lastPage) => {
-        const hasNextPage = lastPage.hasNextPage;
-        return hasNextPage ? lastPage.nextPage : false;
+        const hasNextPage = lastPage.has_next_page;
+        return hasNextPage ? lastPage.next_page : false;
       },
       onSuccess: (data) => {
-        setTotalCount(data.pages[data.pages.length - 1].totalResults);
+        setTotalCount(data.pages[data.pages.length - 1].total_results);
       },
     },
   );
@@ -132,7 +132,7 @@ const ManageItemsPage = ({ f7route, f7router }) => {
 
       <form onSubmit={filterForm.handleSubmit} className="item-list-form p-3 table w-full border-b">
         <div className="float-left">
-          총 <b>{currency((data?.pages[0].totalResults && totalCount) || 0)}</b>개 상품
+          총 <b>{currency((data?.pages[0].total_results && totalCount) || 0)}</b>개 상품
         </div>
         <ListInput
           type="select"

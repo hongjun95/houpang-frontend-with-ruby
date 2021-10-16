@@ -33,8 +33,8 @@ const RefundConsumerList: React.FC<RefundConsumerListProps> = ({ currentUser }) 
     ({ pageParam }) => getRefundsFromConsumerAPI({ consumer_id: currentUser.id, page: pageParam }),
     {
       getNextPageParam: (lastPage) => {
-        const hasNextPage = lastPage.hasNextPage;
-        return hasNextPage ? lastPage.nextPage : false;
+        const hasNextPage = lastPage.has_next_page;
+        return hasNextPage ? lastPage.next_page : false;
       },
     },
   );
