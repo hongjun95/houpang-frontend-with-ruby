@@ -82,12 +82,15 @@ const ItemsList = ({ status, error, data, f7router, ITEM_KEY, filterForm }: Item
                   {page.items.map((item: Item) => (
                     <div className="relative" key={item.id}>
                       <Link className="block m-1" onClick={(e) => onClickLink(e, item.id)}>
-                        <div
-                          className="bg-gray-100 py-32 bg-center bg-cover"
-                          style={{
-                            backgroundImage: `url(${API_URL + item.images[0].image_path})`,
-                          }}
-                        ></div>
+                        {item.images.length !== 0 ? (
+                          <img
+                            className="bg-gray-100 py-32 object-center object-cover"
+                            src={API_URL + item.images[0].image_path}
+                          />
+                        ) : (
+                          <div className="bg-gray-100 py-32 bg-center bg-cover"></div>
+                        )}
+
                         <div className="m-1">
                           <div className="font-bold mt-1 truncate">{item.name}</div>
                           <div className="text-red-700 text-xl font-bold">{formmatPrice(item.sale_price)}원</div>

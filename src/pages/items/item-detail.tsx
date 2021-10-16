@@ -203,7 +203,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
           <div className="Main__info mx-2 my-4">
             <div className="flex justify-between">
               <div className="flex items-center justify-center w-32">
-                {/* <img className="rounded-full mr-2 object-cover w-10 h-10" src={itemData.item.provider.userImg} /> */}
+                <img className="rounded-full mr-2 object-cover w-10 h-10" src={itemData.item.provider.user_img} />
                 <div className="w-full">
                   <div>{itemData.item.provider.name}</div>
                   <div className="text-gray-400 text-sm">브랜드</div>

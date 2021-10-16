@@ -6,7 +6,7 @@ import { random } from 'lodash';
 
 import { f7, List, ListInput, Navbar, Page } from 'framework7-react';
 import { PageRouteProps } from '@constants';
-import { addItemAPI, uploadImages, uploadMultipleImages } from '@api';
+import { addItemAPI, uploadImages } from '@api';
 import { useRecoilValue } from 'recoil';
 import { itemCategoryNameAtom, itemImgFilesAtom, itemNameAtom, itemPriceAtom, itemStockAtom } from '@atoms';
 import { InfoItem } from '@interfaces/item.interface';

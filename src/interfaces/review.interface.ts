@@ -7,11 +7,10 @@ export interface Review extends CoreEntity {
   item: Item;
   content: string;
   rating: number;
-  images: string[];
 }
 
 // create review
-export interface CreateReviewInput extends Pick<Review, 'content' | 'rating' | 'images'> {
+export interface CreateReviewInput extends Pick<Review, 'content' | 'rating'> {
   item_id: string;
 }
 export interface CreateReviewOutput extends CoreOutput {

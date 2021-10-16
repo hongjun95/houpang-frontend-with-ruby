@@ -269,17 +269,6 @@ export const uploadImages = async (data) => {
   return result;
 };
 
-export const uploadMultipleImages = async (data) => {
-  let response;
-  try {
-    response = await API.post('/images/uploads_multiple', data);
-  } catch (error) {
-    console.error(error);
-  }
-  const result = response.data;
-  return result;
-};
-
 // Order APIs
 
 export const getOrdersFromConsumerAPI = async ({
@@ -475,20 +464,14 @@ export const unlikeItemAPI = async ({ item_id }: UnlikeItemInput): Promise<Unlik
 
 // review APIs
 
-export const createReviewAPI = async ({
-  item_id,
-  content,
-  rating,
-  images,
-}: CreateReviewInput): Promise<CreateReviewOutput> => {
+export const createReviewAPI = async ({ item_id, content, rating }: CreateReviewInput): Promise<CreateReviewOutput> => {
   let response: AxiosResponse<CreateReviewOutput>;
   const data = {
     content,
     rating,
-    images,
   };
   try {
-    response = await API.post<CreateReviewOutput>(`/reviews/items/${item_id}`, data);
+    response = await API.post<CreateReviewOutput>(`/reviews?item_id=${item_id}`, data);
   } catch (error) {
     console.error(error);
   }
