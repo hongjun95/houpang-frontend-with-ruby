@@ -176,12 +176,11 @@ const ManageItemsPage = ({ f7route, f7router }) => {
                   {page.items.map((item: Item) => (
                     <div className="relative" key={item.id}>
                       <Link className="block m-1" onClick={(e) => onClickLink(e, item.id)}>
-                        <div
-                          className="bg-gray-100 py-32 bg-center bg-cover"
-                          style={{
-                            backgroundImage: `url(${API_URL + item.images[0].image_path})`,
-                          }}
-                        ></div>
+                        {item.images.length !== 0 ? (
+                          <img className="py-32 object-center object-cover" src={API_URL + item.images[0].image_path} />
+                        ) : (
+                          <div className="bg-gray-100 py-32 bg-center bg-cover"></div>
+                        )}
                         <div className="m-1">
                           <div className="font-bold mt-1 mr-1 truncate">{item.name}</div>
                           <div className="text-red-700 text-xl font-bold">{formmatPrice(item.sale_price)}원</div>
@@ -213,7 +212,13 @@ const ManageItemsPage = ({ f7route, f7router }) => {
                   {page.items.map((item: Item) => (
                     <div>
                       <a className="flex gap-1 m-1" onClick={(e) => onClickLink(e, item.id)} key={item.id}>
-                        <img src={API_URL + item.images[0].image_path} alt="" className="w-1/4 h-40 mr-4" />
+                        {/* <img src={API_URL + item.images[0].image_path} alt="" className="w-1/4 h-40 mr-4" /> */}
+                        {item.images.length !== 0 ? (
+                          <img className="py-32 object-center object-cover" src={API_URL + item.images[0].image_path} />
+                        ) : (
+                          <div className="bg-gray-100 py-32 bg-center bg-cover"></div>
+                        )}
+
                         <div className="w-3/4">
                           <div className="text-xl font-bold mt-1 line-clamp-2">{item.name}</div>
                           <div className="text-red-700 text-2xl mb-6 font-bold">{formmatPrice(item.sale_price)}원</div>

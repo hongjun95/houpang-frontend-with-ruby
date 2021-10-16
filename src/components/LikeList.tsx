@@ -57,7 +57,11 @@ const LikeList: React.FC<LikeListProps> = ({ currentUser, setShoppingList }) => 
         likeList.items.map((item) => (
           <div className="pb-2 border-b border-gray-400 mx-2 my-4" key={item.id}>
             <div className="flex min-w-full">
-              <img src={API_URL + item.images[0].image_path} alt="" className="w-1/4 mr-4" />
+              {item.images.length !== 0 ? (
+                <img className="w-1/4 mr-4 object-center object-cover" src={API_URL + item.images[0].image_path} />
+              ) : (
+                <div className="bg-gray-100 py-32 bg-center bg-cover"></div>
+              )}
               <div className="w-80 flex flex-col justify-between">
                 <div className="flex mb-4">
                   <span className="font-bold truncate w-full">{item.name}</span>
@@ -85,7 +89,7 @@ const LikeList: React.FC<LikeListProps> = ({ currentUser, setShoppingList }) => 
                         name: item.name,
                         price: item.sale_price,
                         orderCount: 1,
-                        imageUrl: API_URL + item.images[0].image_path,
+                        imageUrl: !!item.images[0] ? API_URL + item.images[0].image_path : '',
                       })
                     }
                     disabled={existedItemOnShoppingList(currentUser.id, item.id)}

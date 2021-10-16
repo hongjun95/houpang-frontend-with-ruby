@@ -106,7 +106,14 @@ const SelectProdcutPage = ({ f7route, f7router, orderItem }: SelectItemPageProps
             <h2 className="text-2xl font-bold mb-4">상품을 선택해 주세요.</h2>
             <div className="pb-2 border-b bg-white rounded-lg p-4">
               <div className="flex">
-                <img src={API_URL + orderItem.item.images[0].image_path} alt="" className="w-24 h-24 mr-4" />
+                {orderItem.item.images.length !== 0 ? (
+                  <img
+                    className="w-24 h-24 mr-4 object-center object-cover"
+                    src={API_URL + orderItem.item.images[0].image_path}
+                  />
+                ) : (
+                  <div className="bg-gray-100 w-24 h-24 mr-4 bg-center bg-cover"></div>
+                )}
                 <div className="font-bold mb-4 h-24 ">
                   {orderItem.item.name.length > 140 ? `${orderItem.item.name.slice(0, 140)}...` : orderItem.item.name}
                 </div>

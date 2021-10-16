@@ -153,7 +153,14 @@ const SelectSolutionPage = ({
           <Form className="px-3 py-4 bg-gray-200 min-h-screen">
             <div className="pb-2 border-b bg-white rounded-lg p-4">
               <div className="flex mb-4 pb-4 border-b border-gray-400">
-                <img src={API_URL + orderItem.item.images[0].image_path} alt="" className="w-24 h-24 mr-4" />
+                {orderItem.item.images.length !== 0 ? (
+                  <img
+                    className="w-24 h-24 mr-4 object-center object-cover"
+                    src={API_URL + orderItem.item.images[0].image_path}
+                  />
+                ) : (
+                  <div className="bg-gray-100 w-24 h-24 mr-4 bg-center bg-cover"></div>
+                )}
                 <div className="flex flex-col justify-between">
                   <div className="font-bold mb-2">
                     {orderItem.item.name.length > 140 ? `${orderItem.item.name.slice(0, 140)}...` : orderItem.item.name}

@@ -116,7 +116,11 @@ const OrderItemComponent: React.FC<OrderItemProps> = ({
       </div>
       <div className="flex">
         <a href={`/items/${orderItem.item.id}`}>
-          <img src={API_URL + orderItem.item.images[0].image_path} alt="" className="w-24 h-24 mr-4" />
+          {orderItem.item.images.length !== 0 ? (
+            <img className="w-24 h-24 mr-4" src={API_URL + orderItem.item.images[0].image_path} />
+          ) : (
+            <div className="w-24 h-24 mr-4"></div>
+          )}
         </a>
         <div className="overflow-hidden w-3/4 flex flex-col justify-between h-full">
           <a href={`/items/${orderItem.item.id}`}>
@@ -144,7 +148,7 @@ const OrderItemComponent: React.FC<OrderItemProps> = ({
                     name: orderItem.item.name,
                     price: orderItem.item.sale_price,
                     orderCount: 1,
-                    imageUrl: API_URL + orderItem.item.images[0].image_path,
+                    imageUrl: !!orderItem.item.images[0] ? API_URL + orderItem.item.images[0].image_path : '',
                   })
                 }
                 disabled={existedItemOnShoppingList(userId, orderItem.item.id)}

@@ -84,7 +84,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
         id: itemId,
         name: itemData.item.name,
         price: itemData.item.sale_price,
-        imageUrl: API_URL + itemData.item.images[0].image_path,
+        imageUrl: !!itemData.item.images[0] ? API_URL + itemData.item.images[0].image_path : '',
         orderCount,
       };
       shoppingList.push({ ...shoppingItem });
@@ -156,7 +156,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
         orderList: [
           {
             id: itemData.item.id,
-            imageUrl: API_URL + itemData.item.images[0].image_path,
+            imageUrl: !!itemData.item.images[0] ? API_URL + itemData.item.images[0].image_path : '',
             name: itemData.item.name,
             orderCount,
             price: itemData.item.sale_price,

@@ -122,7 +122,11 @@ const ItemsList = ({ status, error, data, f7router, ITEM_KEY, filterForm }: Item
                   {page.items.map((item: Item) => (
                     <div>
                       <a className="flex gap-1 m-1" onClick={(e) => onClickLink(e, item.id)} key={item.id}>
-                        <img src={API_URL + item.images[0].image_path} alt="" className="w-1/4 h-40 mr-4" />
+                        {item.images.length !== 0 ? (
+                          <img className="w-1/4 h-40 mr-4" src={API_URL + item.images[0].image_path} />
+                        ) : (
+                          <div className="bg-gray-100 w-1/4 h-40 bg-center bg-cover"></div>
+                        )}
                         <div className="w-3/4">
                           <div className="text-xl font-bold mt-1 line-clamp-2">{item.name}</div>
                           <div className="text-red-700 text-2xl mb-6 font-bold">{formmatPrice(item.sale_price)}원</div>

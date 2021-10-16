@@ -129,7 +129,11 @@ const ItemIndexPage = ({ f7route }) => {
                       subtitle={`${currency(item.sale_price)}원`}
                       className="w-full"
                     >
-                      <img slot="media" src={API_URL + item.image_path} className="w-20 rounded" alt="" />
+                      {item.images.length !== 0 ? (
+                        <img slot="media" className="w-20 rounded" src={API_URL + item.images[0].image_path} />
+                      ) : (
+                        <div className="w-20 rounded bg-gray-100"></div>
+                      )}
                     </ListItem>
                   </React.Fragment>
                 ))
@@ -150,6 +154,15 @@ const ItemIndexPage = ({ f7route }) => {
                           src={API_URL + item.image_path}
                           className="w-40 m-auto radius rounded shadow"
                         />
+                        {item.images.length !== 0 ? (
+                          <img
+                            slot="media"
+                            className="w-40 m-auto radius rounded shadow"
+                            src={API_URL + item.images[0].image_path}
+                          />
+                        ) : (
+                          <div className="w-40 m-auto radius rounded shadow bg-gray-100"></div>
+                        )}
                       </ListItem>
                     </div>
                   </React.Fragment>

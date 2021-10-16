@@ -70,7 +70,7 @@ const RefundItemComponent: React.FC<RefundItemProps> = ({ userId, refundItem, is
                   name: refundItem.order_item.item.name,
                   price: refundItem.order_item.item.sale_price,
                   orderCount: 1,
-                  imageUrl: API_URL + refundItem.order_item.item.images[0].image_path,
+                  imageUrl: !!refundItem.order_item.item.images[0] ? API_URL + refundItem.order_item.item.images[0].image_path : '',
                 })
               }
               disabled={existedItemOnShoppingList(userId, refundItem.order_item.item.id)}
