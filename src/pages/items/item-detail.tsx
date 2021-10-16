@@ -19,6 +19,7 @@ import { likeListAtom, shoppingListAtom } from '@atoms';
 import LandingPage from '@pages/landing';
 import useAuth from '@hooks/useAuth';
 import StaticRatingStar from '@components/StaticRatingStar';
+import { formmatDay } from '@utils/formmatDay';
 
 const ItemPrice = styled.div`
   flex: 4 1;
@@ -40,48 +41,48 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
   const setShoppingList = useSetRecoilState<Array<IShoppingItem>>(shoppingListAtom);
 
   const { currentUser } = useAuth();
-  const itemId = f7route.params.id;
+  const item_id = f7route.params.id;
 
   const { data: itemData, status: itemStatus } = useQuery<FindItemByIdOutput, Error>(
-    itemKeys.detail(itemId),
-    () => findItemById({ item_id: itemId }),
+    itemKeys.detail(item_id),
+    () => findItemById({ item_id: item_id }),
     {
-      enabled: !!itemId,
+      enabled: !!item_id,
     },
   );
 
-  // const {
-  //   hasNextPage,
-  //   isFetchingNextPage,
-  //   isFetching,
-  //   data: reviewData,
-  //   error,
-  //   status: reviewStatus,
-  //   fetchNextPage,
-  //   refetch,
-  // } = useInfiniteQuery<GetReviewsOnItemOutput, Error>(
-  //   reviewKeys.list({ itemId, page: 1 }),
-  //   ({ pageParam }) =>
-  //     getReviewOnItemAPI({
-  //       itemId,
-  //       page: pageParam,
-  //     }),
-  //   {
-  //     getNextPageParam: (lastPage) => {
-  //       const hasNextPage = lastPage.hasNextPage;
-  //       return hasNextPage ? lastPage.nextPage : false;
-  //     },
-  //   },
-  // );
+  const {
+    hasNextPage,
+    isFetchingNextPage,
+    isFetching,
+    data: reviewData,
+    error,
+    status: reviewStatus,
+    fetchNextPage,
+    refetch,
+  } = useInfiniteQuery<GetReviewsOnItemOutput, Error>(
+    reviewKeys.list({ item_id, page: 1 }),
+    ({ pageParam }) =>
+      getReviewOnItemAPI({
+        item_id,
+        page: pageParam,
+      }),
+    {
+      getNextPageParam: (lastPage) => {
+        const hasNextPage = lastPage.hasNextPage;
+        return hasNextPage ? lastPage.nextPage : false;
+      },
+    },
+  );
 
   const onAddItemToShoppingList = () => {
     const shoppingList = getShoppingList(currentUser.id);
-    if (existedItemOnShoppingList(currentUser.id, itemId)) {
+    if (existedItemOnShoppingList(currentUser.id, item_id)) {
       f7.dialog.alert('이미 장바구니에 있습니다.');
     } else {
       f7.dialog.alert('장바구니에 담았습니다.');
       const shoppingItem: IShoppingItem = {
-        id: itemId,
+        id: item_id,
         name: itemData.item.name,
         price: itemData.item.sale_price,
         imageUrl: !!itemData.item.images[0] ? API_URL + itemData.item.images[0].image_path : '',
@@ -104,7 +105,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
       items: [...prev.items, { ...itemData.item }],
     }));
     try {
-      const { ok, error } = await likeItemAPI({ item_id: itemId });
+      const { ok, error } = await likeItemAPI({ item_id: item_id });
 
       if (ok) {
         f7.dialog.alert('찜 했습니다.');
@@ -122,10 +123,10 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
     setLike(false);
     setLikeList((prev) => ({
       ...prev,
-      items: [...prev.items.filter((item) => item.id !== itemId)],
+      items: [...prev.items.filter((item) => item.id !== item_id)],
     }));
     try {
-      const { ok, error } = await unlikeItemAPI({ item_id: itemId });
+      const { ok, error } = await unlikeItemAPI({ item_id: item_id });
 
       if (ok) {
         f7.dialog.alert('취소 했습니다.');
@@ -142,7 +143,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
   const onDeleteBtn = async () => {
     try {
       await f7.dialog.confirm('정말로 삭제하시겠습니까?', async () => {
-        await deleteItem({ item_id: itemId });
+        await deleteItem({ item_id: item_id });
         f7router.navigate(`/items?categoryId=${itemData.item.category.id}`);
       });
     } catch (error) {
@@ -167,25 +168,25 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
     });
   };
 
-  // const onClickLink = (e: any) => {
-  //   f7router.navigate(`/reviews/items/${itemId}`, {
-  //     props: {
-  //       pHasNextPage: hasNextPage,
-  //       pIsFetching: isFetching,
-  //       pIsFetchingNextPage: isFetchingNextPage,
-  //       fetchNextPage,
-  //       refetch,
-  //     },
-  //   });
-  // };
+  const onClickLink = (e: any) => {
+    f7router.navigate(`/reviews/items/${item_id}`, {
+      props: {
+        pHasNextPage: hasNextPage,
+        pIsFetching: isFetching,
+        pIsFetchingNextPage: isFetchingNextPage,
+        fetchNextPage,
+        refetch,
+      },
+    });
+  };
 
-  // const onClickWriteReviewLink = (e: any) => {
-  //   f7router.navigate(`/reviews/write/items/${itemId}`, {
-  //     props: {
-  //       refetch,
-  //     },
-  //   });
-  // };
+  const onClickWriteReviewLink = (e: any) => {
+    f7router.navigate(`/reviews/write/items/${item_id}`, {
+      props: {
+        refetch,
+      },
+    });
+  };
 
   return (
     <Page noToolbar className="min-h-screen">
@@ -209,7 +210,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                   <div className="text-gray-400 text-sm">브랜드</div>
                 </div>
               </div>
-              {/* {reviewStatus === 'error' ? (
+              {reviewStatus === 'error' ? (
                 <span>Error : {error.message}</span>
               ) : (
                 reviewStatus === 'success' && (
@@ -217,7 +218,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                     <div className="mr-1">
                       <StaticRatingStar //
                         count={5}
-                        rating={Math.ceil(reviewData.pages[0].avgRating)}
+                        rating={Math.ceil(reviewData.pages[0].avg_rating)}
                         color={{
                           filled: '#ffe259',
                           unfilled: '#DCDCDC',
@@ -228,7 +229,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                     <div className="text-blue-500 text-base mb-1">({reviewData.pages[0].totalResults})</div>
                   </button>
                 )
-              )} */}
+              )}
             </div>
             <div className="flex my-4">
               <h1 className="text-xl mr-1 truncate">{itemData.item.name}</h1>
@@ -241,7 +242,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                 <>
                   <ItemEditLink
                     className="block w-2 py-1 text-center text-white bg-blue-600 rounded-md mr-2"
-                    href={`/items/${itemId}/edit`}
+                    href={`/items/${item_id}/edit`}
                   >
                     수정
                   </ItemEditLink>
@@ -274,7 +275,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
             </table>
           </div>
           <div className="w-full h-3 bg-gray-300"></div>
-          {/* <div className="pb-20">
+          <div className="pb-20">
             <button
               onClick={onClickLink}
               className="flex justify-between items-center px-4 py-4 border-b border-gray-400 outline-none"
@@ -296,7 +297,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                         <div className="mr-1">
                           <StaticRatingStar //
                             count={5}
-                            rating={Math.ceil(reviewData.pages[0].avgRating)}
+                            rating={Math.ceil(reviewData.pages[0].avg_rating)}
                             color={{
                               filled: '#ffe259',
                               unfilled: '#DCDCDC',
@@ -326,8 +327,8 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                     <div className="grid grid-cols-4 gap-1">
                       {reviewData.pages[0].reviews.map((review) => (
                         <img //
-                          key={review.id API_URL++ review.images[0].image_path}
-                          srcAPI_URL+={review.images[0].image_path}
+                          key={review.id}
+                          src={review.images.length !== 0 ? API_URL + review.images[0].image_path : '#'}
                           alt=""
                           className="object-cover object-center h-28 w-full"
                         />
@@ -360,11 +361,11 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                               className="text-lg"
                             />
                           </div>
-                          <div className="text-sm">{review.reviewedAt}</div>
+                          <div className="text-sm">{formmatDay(review.created_at)}</div>
                         </div>
                         <div className="flex">
                           <img //
-                            srcAPI_URL+={review.images[0].image_path}
+                            src={review.images.length !== 0 ? API_URL + review.images[0].image_path : '#'}
                             alt=""
                             className="object-cover object-center h-24 w-24 mr-1"
                           />
@@ -381,9 +382,9 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
                 </>
               )
             )}
-          </div> */}
+          </div>
           <div className="flex fixed bottom-0 border-t-2 botder-gray-600 w-full p-2 bg-white">
-            {like || (likeList.items && likeList.items?.find((item) => item.id === itemId)) ? (
+            {like || (likeList.items && likeList.items?.find((item) => item.id === item_id)) ? (
               <i className="f7-icons cursor-pointer m-3 text-red-500" onClick={unlikeItem}>
                 heart_fill
               </i>
@@ -423,12 +424,12 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
             <div className="flex">
               <button
                 className={`outline-none border font-bold text-base tracking-normal rounded-md p-2 mr-2 ${
-                  existedItemOnShoppingList(currentUser.id, itemId)
+                  existedItemOnShoppingList(currentUser.id, item_id)
                     ? 'border-gray-300 text-gray-300 pointer-events-none'
                     : 'border-blue-600 text-blue-600'
                 }`}
                 onClick={onAddItemToShoppingList}
-                disabled={existedItemOnShoppingList(currentUser.id, itemId)}
+                disabled={existedItemOnShoppingList(currentUser.id, item_id)}
               >
                 장바구니에 담기
               </button>

@@ -1,4 +1,5 @@
 import { CoreOutput, CoreEntity, PaginationInput, PaginationOutput } from './core.interface';
+import { ImageOutput } from './image.interface';
 import { Item } from './item.interface';
 import { User } from './user.interface';
 
@@ -7,6 +8,7 @@ export interface Review extends CoreEntity {
   item: Item;
   content: string;
   rating: number;
+  images: ImageOutput[];
 }
 
 // create review

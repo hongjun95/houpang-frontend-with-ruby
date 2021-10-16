@@ -5,6 +5,7 @@ export interface CoreOutput {
 
 export interface CoreEntity {
   id: string;
+  created_at: string;
 }
 
 export interface PaginationInput {

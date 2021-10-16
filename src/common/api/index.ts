@@ -485,7 +485,7 @@ export const getReviewOnItemAPI = async ({
 }: GetReviewsOnItemInput): Promise<GetReviewsOnItemOutput> => {
   let response: AxiosResponse<GetReviewsOnItemOutput>;
   try {
-    response = await API.get<GetReviewsOnItemOutput>(`/reviews/item/${item_id}`, {
+    response = await API.get<GetReviewsOnItemOutput>(`/reviews?item_id=${item_id}`, {
       params: {
         page,
       },

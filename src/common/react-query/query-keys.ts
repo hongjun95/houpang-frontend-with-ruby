@@ -72,7 +72,7 @@ export const refundsFromProvider = {
 export const reviewKeys = {
   all: ['reviews'] as const,
   lists: () => [...reviewKeys.all, 'list'] as const,
-  list: ({ page, itemId }: { page?: number; itemId: string }) => [...reviewKeys.lists(), itemId, page] as const,
+  list: ({ page, item_id }: { page?: number; item_id: string }) => [...reviewKeys.lists(), item_id, page] as const,
   details: () => [...reviewKeys.all, 'detail'] as const,
   detail: (id: string) => [...reviewKeys.details(), id] as const,
 };
